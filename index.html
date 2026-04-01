@@ -1,9 +1,666 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Simon Sung — Portfolio</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    :root {
+      --bg: #060610;
+      --surface: #0d0d1a;
+      --border: #1e2030;
+      --text: #e2e8f0;
+      --muted: #64748b;
+      --accent: #6366f1;
+      --accent2: #a855f7;
+      --accent3: #ec4899;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ─── Meteors ─── */
+    #meteors {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .meteor {
+      position: absolute;
+      width: 1px;
+      height: 120px;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.85), transparent);
+      border-radius: 999px;
+      animation: meteor-fall linear infinite;
+      transform-origin: top center;
+    }
+
+    @keyframes meteor-fall {
+      0%   { opacity: 1; transform: rotate(215deg) translateX(0); }
+      70%  { opacity: 1; }
+      100% { opacity: 0; transform: rotate(215deg) translateX(900px); }
+    }
+
+    /* ─── Aurora background glow ─── */
+    .aurora {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .aurora-blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(120px);
+      opacity: 0.18;
+      animation: aurora-drift 14s ease-in-out infinite alternate;
+    }
+
+    .aurora-blob:nth-child(1) {
+      width: 600px; height: 600px;
+      background: var(--accent);
+      top: -150px; left: -100px;
+      animation-delay: 0s;
+    }
+
+    .aurora-blob:nth-child(2) {
+      width: 500px; height: 500px;
+      background: var(--accent2);
+      top: 200px; right: -80px;
+      animation-delay: -5s;
+    }
+
+    .aurora-blob:nth-child(3) {
+      width: 400px; height: 400px;
+      background: var(--accent3);
+      bottom: 0; left: 30%;
+      animation-delay: -9s;
+    }
+
+    @keyframes aurora-drift {
+      0%   { transform: translate(0, 0) scale(1); }
+      50%  { transform: translate(40px, 30px) scale(1.1); }
+      100% { transform: translate(-20px, 50px) scale(0.95); }
+    }
+
+    /* ─── Content wrapper ─── */
+    .page { position: relative; z-index: 1; }
+
+    /* ─── Hero ─── */
+    .hero {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 100px 24px 64px;
+      text-align: center;
+    }
+
+    /* Animated badge */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(99,102,241,0.4);
+      background: rgba(99,102,241,0.08);
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: #818cf8;
+      margin-bottom: 28px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .badge-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: #6366f1;
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(99,102,241,0.7); }
+      50%       { box-shadow: 0 0 0 6px rgba(99,102,241,0); }
+    }
+
+    /* Gradient heading */
+    .hero-name {
+      font-size: clamp(2.8rem, 7vw, 5rem);
+      font-weight: 800;
+      letter-spacing: -2px;
+      line-height: 1.05;
+      background: linear-gradient(135deg, #e2e8f0 0%, #6366f1 40%, #a855f7 70%, #ec4899 100%);
+      background-size: 300% 300%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: gradient-shift 6s ease infinite;
+      margin-bottom: 16px;
+    }
+
+    @keyframes gradient-shift {
+      0%   { background-position: 0% 50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .hero-sub {
+      font-size: 1.1rem;
+      color: var(--muted);
+      max-width: 480px;
+      margin: 0 auto 32px;
+    }
+
+    /* CTA */
+    .cta-row {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 22px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #6366f1, #a855f7);
+      color: #fff;
+      box-shadow: 0 0 20px rgba(99,102,241,0.35);
+    }
+
+    .btn-primary:hover {
+      box-shadow: 0 0 32px rgba(99,102,241,0.6);
+      transform: translateY(-1px);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn-ghost:hover {
+      border-color: rgba(99,102,241,0.5);
+      background: rgba(99,102,241,0.06);
+      transform: translateY(-1px);
+    }
+
+    /* ─── Section ─── */
+    section {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 24px 80px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 32px;
+    }
+
+    .section-header h2 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+
+    .section-line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(to right, var(--border), transparent);
+    }
+
+    /* ─── Marquee (tech strip) ─── */
+    .marquee-wrap {
+      overflow: hidden;
+      mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+      -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+      margin-bottom: 64px;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 0;
+    }
+
+    .marquee-track {
+      display: flex;
+      gap: 32px;
+      width: max-content;
+      animation: marquee-scroll 28s linear infinite;
+    }
+
+    .marquee-wrap:hover .marquee-track { animation-play-state: paused; }
+
+    @keyframes marquee-scroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    .marquee-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--muted);
+      white-space: nowrap;
+      padding: 4px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.02);
+    }
+
+    .marquee-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+    }
+
+    /* ─── Cards grid ─── */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    /* Shine border card */
+    .card {
+      position: relative;
+      background: var(--surface);
+      border-radius: 14px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      text-decoration: none;
+      color: inherit;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      transition: transform 0.2s, box-shadow 0.2s;
+      isolation: isolate;
+    }
+
+    /* Animated conic gradient border on hover */
+    .card::before {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: 14px;
+      padding: 1px;
+      background: conic-gradient(
+        from var(--angle, 0deg),
+        #6366f1, #a855f7, #ec4899, #6366f1
+      );
+      -webkit-mask: linear-gradient(#fff 0 0) content-box,
+                    linear-gradient(#fff 0 0);
+      mask: linear-gradient(#fff 0 0) content-box,
+            linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      opacity: 0;
+      transition: opacity 0.3s;
+      animation: border-spin 4s linear infinite paused;
+    }
+
+    .card:hover::before {
+      opacity: 1;
+      animation-play-state: running;
+    }
+
+    @property --angle {
+      syntax: '<angle>';
+      initial-value: 0deg;
+      inherits: false;
+    }
+
+    @keyframes border-spin {
+      to { --angle: 360deg; }
+    }
+
+    /* Shine sweep */
+    .card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        115deg,
+        transparent 40%,
+        rgba(255,255,255,0.04) 50%,
+        transparent 60%
+      );
+      transform: translateX(-100%);
+      transition: transform 0s;
+    }
+
+    .card:hover::after {
+      transform: translateX(100%);
+      transition: transform 0.55s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.4), 0 0 0 1px rgba(99,102,241,0.1);
+    }
+
+    .card-icon {
+      width: 36px; height: 36px;
+      border-radius: 8px;
+      background: rgba(99,102,241,0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #818cf8;
+      flex-shrink: 0;
+    }
+
+    .card-name {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.2px;
+    }
+
+    .card-desc {
+      font-size: 0.82rem;
+      color: var(--muted);
+      flex: 1;
+      line-height: 1.55;
+    }
+
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 4px;
+    }
+
+    .lang-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.74rem;
+      font-weight: 500;
+      color: var(--muted);
+    }
+
+    .lang-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .card-arrow {
+      color: var(--muted);
+      font-size: 0.8rem;
+      transition: transform 0.2s, color 0.2s;
+    }
+
+    .card:hover .card-arrow {
+      transform: translate(3px, -3px);
+      color: #818cf8;
+    }
+
+    /* Language colours */
+    .lang-JavaScript { background: #f1e05a; }
+    .lang-HTML       { background: #e34c26; }
+    .lang-Java       { background: #b07219; }
+    .lang-TeX        { background: #3d6117; }
+    .lang-Unknown    { background: #475569; }
+
+    /* ─── Footer ─── */
+    footer {
+      text-align: center;
+      padding: 32px 24px;
+      color: var(--muted);
+      font-size: 0.78rem;
+      border-top: 1px solid var(--border);
+      position: relative;
+      z-index: 1;
+    }
+
+    footer a {
+      color: #818cf8;
+      text-decoration: none;
+    }
+
+    footer a:hover { text-decoration: underline; }
+
+    /* ─── Responsive ─── */
+    @media (max-width: 500px) {
+      .hero { padding: 72px 16px 48px; }
+      section { padding: 0 16px 56px; }
+    }
+  </style>
+</head>
 <body>
-  <h1>Simon Sung</h1>
-  <p>Welcome to my website!</p>
-  <img src="https://content.codecademy.com/articles/github-pages-via-web-app/happy-ice-cream.gif" />
-</body>
 
+<!-- Aurora background -->
+<div class="aurora" aria-hidden="true">
+  <div class="aurora-blob"></div>
+  <div class="aurora-blob"></div>
+  <div class="aurora-blob"></div>
+</div>
+
+<!-- Meteors -->
+<div id="meteors" aria-hidden="true"></div>
+
+<div class="page">
+
+  <!-- Hero -->
+  <header class="hero">
+    <div class="badge"><span class="badge-dot"></span>Open to opportunities</div>
+    <h1 class="hero-name">Simon Sung</h1>
+    <p class="hero-sub">Developer crafting web experiences — one repo at a time.</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="https://github.com/SimonSinon" target="_blank" rel="noopener">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+          <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38
+            0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13
+            -.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66
+            .07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15
+            -.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0
+            1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82
+            1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01
+            1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+        </svg>
+        GitHub Profile
+      </a>
+      <a class="btn btn-ghost" href="#projects">View Projects ↓</a>
+    </div>
+  </header>
+
+  <!-- Tech marquee -->
+  <div class="marquee-wrap" aria-hidden="true">
+    <div class="marquee-track" id="marquee-track"></div>
+  </div>
+
+  <!-- Projects -->
+  <section id="projects">
+    <div class="section-header">
+      <h2>Projects</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="grid" id="projects-grid"></div>
+  </section>
+
+</div>
+
+<footer>
+  Built by <a href="https://github.com/SimonSinon">Simon Sung</a> &mdash; vanilla HTML, CSS &amp; JS
+</footer>
+
+<script>
+  /* ── Meteors ── */
+  (function () {
+    const container = document.getElementById('meteors');
+    for (let i = 0; i < 18; i++) {
+      const m = document.createElement('div');
+      m.className = 'meteor';
+      const top  = Math.random() * 60 - 10;
+      const left = Math.random() * 120 - 10;
+      const dur  = 4 + Math.random() * 6;
+      const del  = Math.random() * 12;
+      const size = 0.8 + Math.random() * 1.4;
+      m.style.cssText = `
+        top: ${top}%;
+        left: ${left}%;
+        width: ${size}px;
+        height: ${80 + Math.random() * 80}px;
+        animation-duration: ${dur}s;
+        animation-delay: ${del}s;
+        opacity: ${0.4 + Math.random() * 0.6};
+      `;
+      container.appendChild(m);
+    }
+  })();
+
+  /* ── Marquee ── */
+  const techItems = [
+    { label: 'JavaScript', color: '#f1e05a' },
+    { label: 'HTML5',      color: '#e34c26' },
+    { label: 'Java',       color: '#b07219' },
+    { label: 'LaTeX / TeX',color: '#3d6117' },
+    { label: 'CSS3',       color: '#264de4' },
+    { label: 'IoT',        color: '#22d3ee' },
+    { label: 'GitHub Pages',color: '#8b949e' },
+    { label: 'Web Dev',    color: '#a855f7' },
+    { label: 'Git',        color: '#f05032' },
+  ];
+
+  function buildMarquee() {
+    const track = document.getElementById('marquee-track');
+    const doubled = [...techItems, ...techItems, ...techItems, ...techItems];
+    doubled.forEach(item => {
+      const el = document.createElement('div');
+      el.className = 'marquee-item';
+      el.innerHTML = `<span class="marquee-dot" style="background:${item.color}"></span>${item.label}`;
+      track.appendChild(el);
+    });
+  }
+  buildMarquee();
+
+  /* ── Projects ── */
+  const repos = [
+    {
+      name: "IOT",
+      description: "An IoT project built with JavaScript.",
+      language: "JavaScript",
+      url: "https://github.com/SimonSinon/IOT"
+    },
+    {
+      name: "InstaLoad",
+      description: "A beautiful, modern web application to download posts, stories, and profile pictures from any public Instagram account.",
+      language: null,
+      url: "https://github.com/SimonSinon/InstaLoad"
+    },
+    {
+      name: "FINA2203_Cheatsheet",
+      description: "Finance cheatsheet written in LaTeX (TeX).",
+      language: "TeX",
+      url: "https://github.com/SimonSinon/FINA2203_Cheatsheet"
+    },
+    {
+      name: "emia2020.github.io",
+      description: "A personal GitHub Pages site.",
+      language: "HTML",
+      url: "https://github.com/SimonSinon/emia2020.github.io"
+    },
+    {
+      name: "GravityRunner",
+      description: "A JavaScript browser-based game with gravity mechanics.",
+      language: "JavaScript",
+      url: "https://github.com/SimonSinon/GravityRunner"
+    },
+    {
+      name: "COMP4021-CS",
+      description: "Course project for COMP4021 — Internet Computing.",
+      language: "HTML",
+      url: "https://github.com/SimonSinon/COMP4021-CS"
+    },
+    {
+      name: "SimonSinon",
+      description: "Config files and README for my GitHub profile.",
+      language: null,
+      url: "https://github.com/SimonSinon/SimonSinon"
+    },
+    {
+      name: "simonsinon.github.io",
+      description: "My personal portfolio and webpage.",
+      language: "HTML",
+      url: "https://github.com/SimonSinon/simonsinon.github.io"
+    },
+    {
+      name: "COMP3021-Lab1",
+      description: "First GitHub lab exercise for COMP3021 — Java Programming.",
+      language: "Java",
+      url: "https://github.com/SimonSinon/COMP3021-Lab1"
+    },
+    {
+      name: "Comp3111LEx",
+      description: "Java lab exercise for COMP3111 — Software Engineering.",
+      language: "Java",
+      url: "https://github.com/SimonSinon/Comp3111LEx"
+    }
+  ];
+
+  const repoIcon = `<svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+    <path d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0
+      01-.75.75h-2.5a.75.75 0 010-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0
+      01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356
+      0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0
+      00.4.2l1.45-1.087a.25.25 0 01.3 0L8.6 15.7a.25.25 0 00.4-.2v-3.25a.25.25
+      0 00-.25-.25h-3.5a.25.25 0 00-.25.25z"/>
+  </svg>`;
+
+  const grid = document.getElementById('projects-grid');
+
+  repos.forEach(repo => {
+    const lang  = repo.language || 'Unknown';
+    const desc  = repo.description || 'No description provided.';
+    const card  = document.createElement('a');
+    card.className = 'card';
+    card.href      = repo.url;
+    card.target    = '_blank';
+    card.rel       = 'noopener noreferrer';
+    card.innerHTML = `
+      <div class="card-icon">${repoIcon}</div>
+      <div class="card-name">${repo.name}</div>
+      <div class="card-desc">${desc}</div>
+      <div class="card-footer">
+        <span class="lang-badge">
+          <span class="lang-dot lang-${lang}"></span>
+          ${lang !== 'Unknown' ? lang : '—'}
+        </span>
+        <span class="card-arrow">↗</span>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+</script>
+
+</body>
 </html>

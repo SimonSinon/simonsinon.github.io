@@ -1,9 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(gh api:*)",
-      "WebFetch(domain:api.github.com)",
-      "Bash(curl -s \"https://api.github.com/users/simonsinon/repos?sort=updated&per_page=20\")"
-    ]
-  }
-}

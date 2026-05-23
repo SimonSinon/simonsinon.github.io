@@ -1,0 +1,2171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HKUST Coursework — Simon Sung</title>
+  <meta name="description" content="A four-year overview of the courses Simon Sung has taken and is taking at The Hong Kong University of Science and Technology — Computer Science with Extended Major in AI, Minor in Business." />
+  <meta name="author" content="Simon Sung" />
+  <meta property="og:title" content="HKUST Coursework — Simon Sung" />
+  <meta property="og:description" content="A four-year academic journey across Computer Science, Artificial Intelligence, and Business at HKUST." />
+  <meta property="og:type" content="website" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #060610;
+      --surface: #0d0d1a;
+      --surface-2: #11111f;
+      --border: #1e2030;
+      --border-strong: #2a2d44;
+      --text: #e2e8f0;
+      --muted: #64748b;
+      --muted-2: #94a3b8;
+      --accent: #6366f1;
+      --accent2: #a855f7;
+      --accent3: #ec4899;
+
+      /* Category palette */
+      --cat-cs:    #6366f1;
+      --cat-ai:    #a855f7;
+      --cat-math:  #06b6d4;
+      --cat-eng:   #f59e0b;
+      --cat-biz:   #10b981;
+      --cat-huma:  #ec4899;
+      --cat-lang:  #8b5cf6;
+      --cat-other: #64748b;
+
+      /* Status palette */
+      --status-done:    #10b981;
+      --status-prog:    #3b82f6;
+      --status-plan:    #a855f7;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; }
+
+    /* ─── Meteors ─── */
+    #meteors {
+      position: fixed; inset: 0;
+      pointer-events: none; z-index: 0;
+      overflow: hidden;
+    }
+
+    .meteor {
+      position: absolute;
+      width: 1px; height: 120px;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.85), transparent);
+      border-radius: 999px;
+      animation: meteor-fall linear infinite;
+      transform-origin: top center;
+    }
+
+    @keyframes meteor-fall {
+      0%   { opacity: 1; transform: rotate(215deg) translateX(0); }
+      70%  { opacity: 1; }
+      100% { opacity: 0; transform: rotate(215deg) translateX(900px); }
+    }
+
+    /* ─── Aurora background glow ─── */
+    .aurora {
+      position: fixed; inset: 0;
+      pointer-events: none; z-index: 0;
+      overflow: hidden;
+    }
+    .aurora-blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(120px);
+      opacity: 0.18;
+      animation: aurora-drift 14s ease-in-out infinite alternate;
+    }
+    .aurora-blob:nth-child(1) {
+      width: 600px; height: 600px;
+      background: var(--accent);
+      top: -150px; left: -100px;
+    }
+    .aurora-blob:nth-child(2) {
+      width: 500px; height: 500px;
+      background: var(--accent2);
+      top: 200px; right: -80px;
+      animation-delay: -5s;
+    }
+    .aurora-blob:nth-child(3) {
+      width: 400px; height: 400px;
+      background: var(--accent3);
+      bottom: 0; left: 30%;
+      animation-delay: -9s;
+    }
+    @keyframes aurora-drift {
+      0%   { transform: translate(0, 0) scale(1); }
+      50%  { transform: translate(40px, 30px) scale(1.1); }
+      100% { transform: translate(-20px, 50px) scale(0.95); }
+    }
+
+    .page { position: relative; z-index: 1; }
+
+    /* ─── Top nav ─── */
+    .topnav {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 24px 24px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .topnav a.brand {
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      text-decoration: none;
+      color: var(--text);
+      font-size: 0.95rem;
+      display: inline-flex; align-items: center; gap: 8px;
+    }
+    .topnav a.brand:hover { color: #c7d2fe; }
+    .topnav .nav-links { display: flex; gap: 6px; }
+    .topnav .nav-links a {
+      text-decoration: none;
+      color: var(--muted-2);
+      font-size: 0.85rem;
+      padding: 8px 14px;
+      border-radius: 8px;
+      transition: color 0.2s, background 0.2s;
+    }
+    .topnav .nav-links a:hover {
+      color: var(--text);
+      background: rgba(99,102,241,0.08);
+    }
+
+    /* ─── Hero ─── */
+    .hero {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 44px 24px 28px;
+      text-align: center;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(99,102,241,0.4);
+      background: rgba(99,102,241,0.08);
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: #818cf8;
+      margin-bottom: 24px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .badge-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: #6366f1;
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+    @keyframes pulse-dot {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(99,102,241,0.7); }
+      50%      { box-shadow: 0 0 0 6px rgba(99,102,241,0); }
+    }
+
+    .hero h1 {
+      font-size: clamp(2.4rem, 6vw, 4rem);
+      font-weight: 800;
+      letter-spacing: -2px;
+      line-height: 1.05;
+      background: linear-gradient(135deg, #e2e8f0 0%, #6366f1 40%, #a855f7 70%, #ec4899 100%);
+      background-size: 300% 300%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: gradient-shift 6s ease infinite;
+      margin-bottom: 16px;
+    }
+    @keyframes gradient-shift {
+      0%   { background-position: 0% 50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .hero-sub {
+      font-size: 1.05rem;
+      color: var(--muted-2);
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    /* ─── Summary stats ─── */
+    .stats {
+      max-width: 1100px;
+      margin: 24px auto 36px;
+      padding: 0 24px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 14px;
+    }
+    .stat {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px 20px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .stat:hover { border-color: rgba(99,102,241,0.4); transform: translateY(-2px); }
+    .stat-num {
+      font-size: 1.8rem;
+      font-weight: 800;
+      letter-spacing: -1px;
+      background: linear-gradient(135deg, #818cf8, #c084fc);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .stat-label {
+      font-size: 0.78rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-top: 4px;
+    }
+
+    /* ─── Sections ─── */
+    section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px 44px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+    .section-header h2 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+    .section-header p {
+      font-size: 0.88rem;
+      color: var(--muted);
+    }
+    .section-line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(to right, var(--border), transparent);
+    }
+
+    /* ─── Overview ─── */
+    .overview-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+    }
+    .overview-card {
+      position: relative;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      overflow: hidden;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .overview-card:hover { border-color: var(--border-strong); transform: translateY(-2px); }
+    .overview-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top right, var(--card-tint, transparent), transparent 65%);
+      pointer-events: none;
+    }
+    .overview-card > * { position: relative; z-index: 1; }
+    .overview-card h3 {
+      font-size: 0.66rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin: 0;
+      font-weight: 700;
+    }
+    .overview-card p {
+      font-size: 0.95rem;
+      color: var(--text);
+    }
+    .oc-big {
+      font-size: 1.55rem;
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.5px;
+      background: linear-gradient(135deg, #fafafa, #c7d2fe);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .oc-big .oc-unit { font-size: 0.85rem; color: var(--muted-2); font-weight: 600; -webkit-text-fill-color: var(--muted-2); margin: 0 2px; }
+    .oc-sub { font-size: 0.78rem; color: var(--muted-2); line-height: 1.45; }
+    .oc-chips { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 2px; }
+    .oc-chip {
+      font-size: 0.66rem;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border-strong);
+      color: var(--muted-2);
+      font-weight: 500;
+    }
+    .oc-list { display: flex; flex-direction: column; gap: 0; font-size: 0.78rem; color: var(--text); }
+    .oc-list .oc-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 8px;
+      padding: 5px 0;
+      border-bottom: 1px dashed var(--border);
+    }
+    .oc-list .oc-row:last-child { border-bottom: none; }
+    .oc-list .oc-row .oc-meta { color: var(--muted); font-size: 0.7rem; font-weight: 500; white-space: nowrap; }
+    .overview-card.accent-indigo  { --card-tint: rgba(99,102,241,0.10); }
+    .overview-card.accent-purple  { --card-tint: rgba(168,85,247,0.10); }
+    .overview-card.accent-cyan    { --card-tint: rgba(6,182,212,0.10); }
+    .overview-card.accent-emerald { --card-tint: rgba(16,185,129,0.10); }
+    .overview-card.accent-pink    { --card-tint: rgba(236,72,153,0.10); }
+    .overview-card.accent-amber   { --card-tint: rgba(245,158,11,0.10); }
+
+    /* ─── Filters ─── */
+    .filters {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px;
+      margin-bottom: 32px;
+      display: grid;
+      gap: 14px;
+    }
+    .filter-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+    .filter-label {
+      font-size: 0.74rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      font-weight: 600;
+      min-width: 80px;
+    }
+    .chip {
+      background: transparent;
+      border: 1px solid var(--border-strong);
+      color: var(--muted-2);
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.18s;
+      font-family: inherit;
+    }
+    .chip:hover {
+      color: var(--text);
+      border-color: rgba(99,102,241,0.5);
+    }
+    .chip.active {
+      background: rgba(99,102,241,0.15);
+      border-color: rgba(99,102,241,0.6);
+      color: #c7d2fe;
+    }
+    .search-wrap {
+      flex: 1;
+      min-width: 220px;
+      position: relative;
+    }
+    .search-wrap input {
+      width: 100%;
+      background: var(--bg);
+      border: 1px solid var(--border-strong);
+      border-radius: 8px;
+      padding: 9px 14px 9px 36px;
+      color: var(--text);
+      font-size: 0.88rem;
+      font-family: inherit;
+      transition: border-color 0.2s;
+    }
+    .search-wrap input:focus {
+      outline: none;
+      border-color: rgba(99,102,241,0.6);
+    }
+    .search-wrap svg {
+      position: absolute;
+      left: 12px; top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted);
+    }
+
+    .filter-summary {
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-bottom: 18px;
+    }
+
+    /* ─── Timeline ─── */
+    .timeline { position: relative; }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 16px;
+      top: 8px; bottom: 8px;
+      width: 2px;
+      background: linear-gradient(to bottom,
+        rgba(99,102,241,0.5), rgba(168,85,247,0.4), rgba(236,72,153,0.3), transparent);
+      border-radius: 2px;
+    }
+    @media (max-width: 720px) {
+      .timeline::before { left: 10px; }
+    }
+
+    .year-block {
+      position: relative;
+      padding-left: 48px;
+      margin-bottom: 48px;
+    }
+    @media (max-width: 720px) {
+      .year-block { padding-left: 32px; }
+    }
+
+    .year-dot {
+      position: absolute;
+      left: 8px; top: 6px;
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      background: var(--bg);
+      border: 3px solid var(--accent);
+      box-shadow: 0 0 0 4px rgba(99,102,241,0.12);
+    }
+    @media (max-width: 720px) {
+      .year-dot { left: 2px; width: 16px; height: 16px; }
+    }
+    .year-block:nth-child(2) .year-dot { border-color: var(--accent2); box-shadow: 0 0 0 4px rgba(168,85,247,0.12); }
+    .year-block:nth-child(3) .year-dot { border-color: var(--accent3); box-shadow: 0 0 0 4px rgba(236,72,153,0.12); }
+    .year-block:nth-child(4) .year-dot { border-color: #f59e0b; box-shadow: 0 0 0 4px rgba(245,158,11,0.12); }
+
+    .year-heading {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+    .year-heading h3 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: -0.6px;
+    }
+    .year-heading .year-meta {
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+    .year-tagline {
+      font-size: 0.9rem;
+      color: var(--muted-2);
+      margin-bottom: 20px;
+    }
+
+    .semester-block { margin-bottom: 22px; }
+    .semester-heading {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+      font-size: 0.8rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 600;
+    }
+    .semester-heading::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ─── Course cards ─── */
+    .courses-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      gap: 14px;
+    }
+
+    .course {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+      position: relative;
+    }
+    .course:hover {
+      transform: translateY(-2px);
+      border-color: rgba(99,102,241,0.45);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.35);
+    }
+    .course.hidden { display: none; }
+
+    .course-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .course-code {
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 0.78rem;
+      color: #c7d2fe;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      background: rgba(99,102,241,0.1);
+      padding: 3px 8px;
+      border-radius: 5px;
+      border: 1px solid rgba(99,102,241,0.2);
+    }
+    .course-grade {
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--muted-2);
+      padding: 3px 8px;
+      border-radius: 5px;
+      border: 1px solid var(--border-strong);
+      background: var(--surface-2);
+    }
+    .course-grade.high  { color: #6ee7b7; border-color: rgba(16,185,129,0.4); background: rgba(16,185,129,0.08); }
+    .course-grade.mid   { color: #fcd34d; border-color: rgba(245,158,11,0.4); background: rgba(245,158,11,0.08); }
+    .course-grade.low   { color: #fca5a5; border-color: rgba(239,68,68,0.4);  background: rgba(239,68,68,0.08); }
+
+    .course-title {
+      font-size: 0.98rem;
+      font-weight: 700;
+      letter-spacing: -0.2px;
+      line-height: 1.3;
+    }
+
+    .course-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 3px 9px;
+      border-radius: 999px;
+      letter-spacing: 0.03em;
+      border: 1px solid transparent;
+    }
+    .tag-dot { width: 6px; height: 6px; border-radius: 50%; }
+
+    .tag-status-Completed   { background: rgba(16,185,129,0.10); color: #6ee7b7; border-color: rgba(16,185,129,0.3); }
+    .tag-status-Completed .tag-dot { background: var(--status-done); }
+    .tag-status-InProgress  { background: rgba(59,130,246,0.10); color: #93c5fd; border-color: rgba(59,130,246,0.3); }
+    .tag-status-InProgress .tag-dot { background: var(--status-prog); animation: pulse-dot 2s ease-in-out infinite; }
+    .tag-status-Planned     { background: rgba(168,85,247,0.10); color: #d8b4fe; border-color: rgba(168,85,247,0.3); }
+    .tag-status-Planned .tag-dot { background: var(--status-plan); }
+    .tag-status-Transferred { background: rgba(245,158,11,0.10); color: #fcd34d; border-color: rgba(245,158,11,0.3); }
+    .tag-status-Transferred .tag-dot { background: #f59e0b; }
+
+    .tag-category {
+      background: var(--surface-2);
+      color: var(--muted-2);
+      border-color: var(--border-strong);
+    }
+    .tag-credit {
+      background: transparent;
+      color: var(--muted);
+      border-color: var(--border-strong);
+    }
+
+    .course-desc {
+      font-size: 0.82rem;
+      color: var(--muted-2);
+      line-height: 1.55;
+    }
+
+    .course-details {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease;
+    }
+    .course[aria-expanded="true"] .course-details {
+      max-height: 600px;
+    }
+    .details-inner {
+      padding-top: 8px;
+      border-top: 1px dashed var(--border);
+      margin-top: 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .detail-row h4 {
+      font-size: 0.7rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+    .chips-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+    .mini-chip {
+      font-size: 0.72rem;
+      padding: 3px 8px;
+      border-radius: 5px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      color: var(--muted-2);
+    }
+    .mini-chip.skill { color: #c7d2fe; border-color: rgba(99,102,241,0.3); background: rgba(99,102,241,0.08); }
+    .project-line {
+      font-size: 0.8rem;
+      color: var(--muted-2);
+      font-style: italic;
+    }
+
+    .toggle-btn {
+      align-self: flex-start;
+      background: transparent;
+      border: none;
+      color: #818cf8;
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 4px 0;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-family: inherit;
+    }
+    .toggle-btn:hover { color: #c7d2fe; }
+    .toggle-btn .arrow { transition: transform 0.25s; display: inline-block; }
+    .course[aria-expanded="true"] .toggle-btn .arrow { transform: rotate(180deg); }
+
+    .empty-state {
+      text-align: center;
+      padding: 48px 16px;
+      color: var(--muted);
+      border: 1px dashed var(--border-strong);
+      border-radius: 12px;
+    }
+
+    /* ─── Progress bars (summary section) ─── */
+    .progress-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 14px;
+    }
+    .progress-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px 20px;
+    }
+    .progress-card h4 {
+      font-size: 0.8rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-weight: 600;
+      margin-bottom: 14px;
+    }
+    .bar-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+    .bar-row:last-child { margin-bottom: 0; }
+    .bar-row .label {
+      font-size: 0.82rem;
+      color: var(--text);
+    }
+    .bar-row .count {
+      font-size: 0.78rem;
+      color: var(--muted);
+      font-variant-numeric: tabular-nums;
+    }
+    .bar-track {
+      grid-column: 1 / -1;
+      height: 6px;
+      background: var(--surface-2);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .bar-fill {
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      width: 0;
+      transition: width 0.6s ease;
+    }
+
+    /* ─── Skills cloud ─── */
+    .skills-cloud {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 22px;
+      align-items: center;
+      justify-content: center;
+    }
+    .skill-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: var(--surface-2);
+      border: 1px solid var(--border-strong);
+      color: var(--muted-2);
+      font-weight: 500;
+      transition: transform 0.15s, border-color 0.15s, color 0.15s;
+      cursor: default;
+      line-height: 1;
+    }
+    .skill-chip:hover {
+      transform: translateY(-1px);
+      color: #c7d2fe;
+      border-color: rgba(99,102,241,0.5);
+    }
+    .skill-chip .sc-count {
+      font-size: 0.7em;
+      color: var(--muted);
+      font-variant-numeric: tabular-nums;
+    }
+    .skill-chip.s-1 { font-size: 0.78rem; }
+    .skill-chip.s-2 { font-size: 0.88rem; color: #d8b4fe; border-color: rgba(168,85,247,0.35); }
+    .skill-chip.s-3 { font-size: 1.0rem;  color: #c7d2fe; border-color: rgba(99,102,241,0.5); background: rgba(99,102,241,0.08); }
+    .skill-chip.s-4 { font-size: 1.15rem; color: #fff;     border-color: rgba(236,72,153,0.5); background: linear-gradient(135deg, rgba(99,102,241,0.15), rgba(236,72,153,0.15)); }
+
+    /* ─── Skills map (legacy) ─── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 14px;
+    }
+    .skill-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px;
+    }
+    .skill-card h4 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .skill-card h4::before {
+      content: '';
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent3));
+    }
+    .skill-courses {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+
+    /* ─── Highlights ─── */
+    .highlights-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+    }
+    .highlight {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 22px;
+      position: relative;
+      overflow: hidden;
+    }
+    .highlight::after {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 120px; height: 120px;
+      background: radial-gradient(circle at top right, rgba(168,85,247,0.18), transparent 70%);
+      pointer-events: none;
+    }
+    .highlight .h-code {
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 0.78rem;
+      color: #c7d2fe;
+      margin-bottom: 4px;
+    }
+    .highlight h4 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      margin-bottom: 12px;
+    }
+    .highlight p {
+      font-size: 0.88rem;
+      color: var(--muted-2);
+      margin-bottom: 10px;
+    }
+    .highlight strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    /* ─── Notes (reflections) ─── */
+    .notes {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 26px;
+    }
+    .notes p {
+      color: var(--muted-2);
+      font-size: 0.95rem;
+      margin-bottom: 14px;
+    }
+    .notes p:last-child { margin-bottom: 0; }
+
+    /* ─── CTA ─── */
+    .cta-row {
+      display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;
+    }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 10px 22px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer;
+      border: none;
+      font-family: inherit;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #6366f1, #a855f7);
+      color: #fff;
+      box-shadow: 0 0 20px rgba(99,102,241,0.35);
+    }
+    .btn-primary:hover {
+      box-shadow: 0 0 32px rgba(99,102,241,0.6);
+      transform: translateY(-1px);
+    }
+    .btn-ghost {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-ghost:hover {
+      border-color: rgba(99,102,241,0.5);
+      background: rgba(99,102,241,0.06);
+      transform: translateY(-1px);
+    }
+
+    /* ─── Footer ─── */
+    footer {
+      text-align: center;
+      padding: 32px 24px;
+      color: var(--muted);
+      font-size: 0.78rem;
+      border-top: 1px solid var(--border);
+      position: relative;
+      z-index: 1;
+    }
+    footer a { color: #818cf8; text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    /* ─── Responsive ─── */
+    @media (max-width: 640px) {
+      .topnav { padding: 16px 16px 0; }
+      .hero { padding: 40px 16px 32px; }
+      section { padding: 0 16px 56px; }
+      .stats { padding: 0 16px; }
+      .filter-label { min-width: 0; width: 100%; margin-bottom: 4px; }
+    }
+
+    /* ─── Academic Journey: gantt timeline + detail panel ─── */
+    .journey-wrap {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px;
+      position: relative;
+      overflow-x: auto;
+      overflow-y: visible;
+    }
+    .journey-wrap::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top right, rgba(168,85,247,0.08), transparent 55%);
+      pointer-events: none;
+    }
+
+    /* ─── Gantt-style academic timeline ─── */
+    .gantt {
+      display: grid;
+      min-width: 1280px;
+      grid-template-columns: 132px repeat(16, minmax(70px, 1fr));
+      gap: 3px;
+      align-items: stretch;
+      font-size: 0.7rem;
+    }
+    .g-year-head {
+      grid-row: 1;
+      grid-column: span 4;
+      text-align: center;
+      font-size: 0.86rem;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+      padding: 6px 0 2px;
+      background: linear-gradient(135deg, #e2e8f0, #c7d2fe);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      position: relative;
+    }
+    .g-year-head .g-year-sub {
+      display: block;
+      font-size: 0.6rem;
+      color: var(--muted);
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      -webkit-text-fill-color: var(--muted);
+    }
+    .g-sem-head {
+      grid-row: 2;
+      font-size: 0.6rem;
+      color: var(--muted);
+      text-align: center;
+      padding: 3px 0 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      border-bottom: 1px solid var(--border);
+      font-weight: 600;
+    }
+    .g-sem-head.sem-Fall   { color: #fcd34d; }
+    .g-sem-head.sem-Winter { color: #93c5fd; }
+    .g-sem-head.sem-Spring { color: #6ee7b7; }
+    .g-sem-head.sem-Summer { color: #f9a8d4; }
+
+    .g-lane-label {
+      grid-column: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 2px;
+      padding: 4px 10px 4px 2px;
+      border-right: 1px dashed var(--border);
+      font-size: 0.74rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .g-lane-label .g-lane-sub {
+      font-size: 0.58rem;
+      color: var(--muted);
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .g-cell {
+      min-height: 38px;
+      padding: 3px;
+      background: rgba(255,255,255,0.012);
+      border-radius: 5px;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 2px;
+      min-width: 0;
+      border: 1px solid transparent;
+    }
+    .g-cell.year-alt { background: rgba(168,85,247,0.028); }
+    .g-cell.activity-bg { background: rgba(255,255,255,0.006); min-height: 34px; }
+    .g-cell.activity-bg.year-alt { background: rgba(168,85,247,0.018); }
+
+    /* Bars spanning multiple time slots */
+    .g-bar {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 9px 4px 8px;
+      border-radius: 999px;
+      font-size: 0.66rem;
+      font-weight: 600;
+      white-space: nowrap;
+      overflow: visible;
+      align-self: center;
+      cursor: help;
+      min-height: 24px;
+      margin: 3px 1px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
+      transition: transform 0.15s, box-shadow 0.15s;
+      position: relative;
+      z-index: 2;
+    }
+    .g-bar:hover { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(0,0,0,0.35); }
+    .g-bar::before {
+      content: '';
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: currentColor;
+      flex-shrink: 0;
+      box-shadow: 0 0 7px currentColor;
+    }
+    .g-bar .g-bar-meta { font-size: 0.6rem; opacity: 0.75; font-weight: 500; margin-left: auto; }
+    .g-bar.kind-intern  { color:#6ee7b7; background: linear-gradient(90deg, rgba(16,185,129,0.22), rgba(16,185,129,0.10)); border:1px solid rgba(16,185,129,0.5); }
+    .g-bar.kind-event   { color:#a5b4fc; background: linear-gradient(90deg, rgba(99,102,241,0.22), rgba(99,102,241,0.10)); border:1px solid rgba(99,102,241,0.5); }
+    .g-bar.kind-role    { color:#f9a8d4; background: linear-gradient(90deg, rgba(236,72,153,0.22), rgba(236,72,153,0.10)); border:1px solid rgba(236,72,153,0.5); }
+    .g-bar.kind-project { color:#67e8f9; background: linear-gradient(90deg, rgba(6,182,212,0.22), rgba(6,182,212,0.10)); border:1px solid rgba(6,182,212,0.5); }
+
+    /* Award diamond markers */
+    .g-award {
+      width: 16px; height: 16px;
+      transform: rotate(45deg);
+      background: linear-gradient(135deg, #fde68a, #f59e0b);
+      border: 1px solid rgba(245,158,11,0.65);
+      box-shadow: 0 0 10px rgba(245,158,11,0.55);
+      align-self: center;
+      margin: auto;
+      cursor: help;
+      flex-shrink: 0;
+    }
+    .g-award-cell {
+      min-height: 30px;
+      padding: 4px;
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Section divider inside the gantt */
+    .g-section-label {
+      grid-column: 1 / -1;
+      font-size: 0.6rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-weight: 700;
+      padding: 14px 0 4px 4px;
+      border-bottom: 1px dashed var(--border);
+      margin-bottom: 2px;
+    }
+
+    /* Smaller pills inside gantt to fit narrow slots */
+    .gantt .pill {
+      font-size: 0.62rem;
+      padding: 3px 6px;
+      border-radius: 4px;
+      min-width: 0;
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      text-align: center;
+      display: block;
+      letter-spacing: 0.2px;
+    }
+    .gantt .pill .pill-mark { width: 4px; height: 4px; margin-left: 3px; }
+
+    .pill {
+      --pc: var(--cat-other);
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      padding: 4px 8px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.15s, opacity 0.25s, filter 0.25s;
+      white-space: nowrap;
+      background: color-mix(in srgb, var(--pc) 12%, transparent);
+      color: var(--pc);
+      border: 1px solid color-mix(in srgb, var(--pc) 38%, transparent);
+      position: relative;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    }
+    .pill:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.35);
+      background: color-mix(in srgb, var(--pc) 20%, transparent);
+    }
+    .pill.selected {
+      transform: translateY(-2px);
+      background: color-mix(in srgb, var(--pc) 28%, transparent);
+      box-shadow: 0 0 0 2px color-mix(in srgb, var(--pc) 55%, transparent),
+                  0 8px 22px rgba(0,0,0,0.4);
+    }
+    .pill.dim { opacity: 0.16; filter: saturate(0.3); pointer-events: none; }
+    .pill .pill-mark {
+      display: inline-block;
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      margin-left: 5px;
+      vertical-align: middle;
+      background: currentColor;
+    }
+    .pill.in-progress .pill-mark { animation: pulse-dot 2s ease-in-out infinite; }
+    .pill.transferred { font-style: italic; }
+    .pill.transferred::before {
+      content: '↗';
+      margin-right: 3px;
+      opacity: 0.7;
+    }
+
+    /* Category legend */
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 1px dashed var(--border);
+    }
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.74rem;
+      color: var(--muted-2);
+    }
+    .legend-swatch {
+      width: 10px; height: 10px;
+      border-radius: 3px;
+    }
+
+    /* Detail panel */
+    .detail-panel {
+      margin-top: 18px;
+      background: linear-gradient(135deg, rgba(99,102,241,0.04), rgba(168,85,247,0.04));
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px 22px;
+      transition: border-color 0.2s;
+      min-height: 140px;
+    }
+    .detail-panel.has-selection { border-color: rgba(99,102,241,0.35); }
+    .dp-empty {
+      color: var(--muted);
+      font-size: 0.88rem;
+      text-align: center;
+      padding: 20px;
+    }
+    .dp-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+    .dp-code-title { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+    .dp-code {
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 0.78rem;
+      color: #c7d2fe;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+    .dp-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      line-height: 1.25;
+    }
+    .dp-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      align-items: center;
+      margin-top: 8px;
+    }
+    .dp-term {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+    .dp-body {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 14px;
+    }
+    .dp-hashtags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .hashtag {
+      font-size: 0.78rem;
+      font-weight: 500;
+      padding: 4px 9px;
+      border-radius: 999px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      color: var(--muted-2);
+    }
+    .hashtag::before { content: '#'; color: var(--muted); margin-right: 2px; }
+    .hashtag.skill {
+      color: #c7d2fe;
+      background: rgba(99,102,241,0.08);
+      border-color: rgba(99,102,241,0.3);
+    }
+    .hashtag.skill::before { color: rgba(199,210,254,0.6); }
+    .dp-project {
+      font-size: 0.86rem;
+      color: var(--muted-2);
+      padding: 10px 14px;
+      background: var(--surface-2);
+      border-left: 2px solid var(--accent);
+      border-radius: 4px;
+    }
+    .dp-project strong { color: var(--text); font-weight: 600; margin-right: 4px; }
+
+    .dp-toggle {
+      align-self: flex-start;
+      background: transparent;
+      border: 1px solid var(--border-strong);
+      color: #818cf8;
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 6px 12px;
+      border-radius: 999px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: inherit;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .dp-toggle:hover { border-color: rgba(99,102,241,0.55); color: #c7d2fe; }
+    .dp-toggle .arrow { transition: transform 0.25s; }
+    .dp-toggle[aria-expanded="true"] .arrow { transform: rotate(180deg); }
+    .dp-description {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, margin-top 0.3s ease;
+      font-size: 0.88rem;
+      color: var(--muted-2);
+      line-height: 1.6;
+    }
+    .dp-description.open {
+      max-height: 800px;
+      margin-top: 4px;
+    }
+
+    /* Matrix responsive */
+    @media (max-width: 760px) {
+      .milestones, .matrix {
+        grid-template-columns: 64px repeat(4, 1fr);
+      }
+      .ms-col, .mx-cell { padding: 6px; }
+      .ms-chip { font-size: 0.68rem; padding: 4px 7px; }
+      .pill { font-size: 0.65rem; padding: 3px 6px; }
+      .mx-row-head .yr-num { font-size: 0.85rem; }
+    }
+    @media (max-width: 520px) {
+      .milestones, .matrix {
+        grid-template-columns: 1fr;
+      }
+      .ms-axis-label, .mx-corner { display: none; }
+      .ms-col, .mx-cell { min-height: 0; }
+      .ms-col-head, .mx-head { text-align: left; padding-left: 4px; }
+      .mx-row-head {
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+        flex-direction: row;
+        align-items: baseline;
+        gap: 8px;
+        padding: 12px 4px 4px;
+      }
+    }
+
+    /* Accessibility */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.001s !important;
+        transition-duration: 0.001s !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Aurora background -->
+<div class="aurora" aria-hidden="true">
+  <div class="aurora-blob"></div>
+  <div class="aurora-blob"></div>
+  <div class="aurora-blob"></div>
+</div>
+
+<!-- Meteors -->
+<div id="meteors" aria-hidden="true"></div>
+
+<div class="page">
+
+  <!-- Top navigation -->
+  <nav class="topnav" aria-label="Primary">
+    <a class="brand" href="index.html">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M15 18l-6-6 6-6"/>
+      </svg>
+      Simon Sung
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="index.html#projects">Projects</a>
+      <a href="coursework.html" aria-current="page">Coursework</a>
+    </div>
+  </nav>
+
+  <!-- ─── Hero ─── -->
+  <header class="hero">
+    <div class="badge"><span class="badge-dot"></span>HKUST · BEng Computer Science</div>
+    <h1>HKUST Coursework</h1>
+    <p class="hero-sub">A four-year overview of the courses I have taken and am taking at HKUST — Computer Science with Extended Major in AI, Minor in Business.</p>
+  </header>
+
+  <!-- ─── Summary stats ─── -->
+  <div class="stats" id="stats" aria-label="Coursework summary"></div>
+
+  <!-- ─── Overview ─── -->
+  <section id="overview" aria-labelledby="overview-h">
+    <div class="section-header">
+      <h2 id="overview-h">Overview</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="overview-grid">
+      <div class="overview-card accent-indigo">
+        <h3>Program</h3>
+        <div class="oc-big">BEng CS</div>
+        <div class="oc-chips">
+          <span class="oc-chip">+ AI Extended Major</span>
+          <span class="oc-chip">+ Business Minor</span>
+          <span class="oc-chip">2:1 target</span>
+        </div>
+      </div>
+      <div class="overview-card accent-purple">
+        <h3>Exchange</h3>
+        <div class="oc-big">KTH</div>
+        <div class="oc-sub">Royal Institute of Technology &mdash; Stockholm</div>
+        <div class="oc-chips"><span class="oc-chip">Aug 2024 — Jan 2025</span></div>
+      </div>
+      <div class="overview-card accent-cyan">
+        <h3>Final Year Project</h3>
+        <div class="oc-big">93.83<span class="oc-unit">%</span> <span class="oc-unit">·</span> 9.6<span class="oc-unit">×</span></div>
+        <div class="oc-sub">Edge-AI elderly monitoring &mdash; fusion accuracy &amp; throughput gain on Jetson Orin&nbsp;NX.</div>
+      </div>
+      <div class="overview-card accent-emerald">
+        <h3>Internships</h3>
+        <div class="oc-list">
+          <div class="oc-row"><span>OOCL &mdash; ISD Intern</span><span class="oc-meta">Summer 2025</span></div>
+          <div class="oc-row"><span>HKU TTO &mdash; IT Programmer</span><span class="oc-meta">Summer 2024</span></div>
+          <div class="oc-row"><span>USThing &mdash; App Dev</span><span class="oc-meta">2024</span></div>
+          <div class="oc-row"><span>HKUST ITSO &mdash; Helper</span><span class="oc-meta">2023 &mdash; now</span></div>
+        </div>
+      </div>
+      <div class="overview-card accent-pink">
+        <h3>Leadership</h3>
+        <div class="oc-big">25<span class="oc-unit">musicians</span> &middot; 6<span class="oc-unit">concerts</span></div>
+        <div class="oc-sub">President &mdash; HKUST Chinese Orchestra (2023&ndash;2025)</div>
+      </div>
+      <div class="overview-card accent-amber">
+        <h3>Selected Awards</h3>
+        <div class="oc-list">
+          <div class="oc-row"><span>Code for Good &mdash; 1st Runner-Up</span><span class="oc-meta">2025</span></div>
+          <div class="oc-row"><span>GS1 IoT Hackathon &mdash; Finalist</span><span class="oc-meta">2026</span></div>
+          <div class="oc-row"><span>Chiang Chen Scholarship</span><span class="oc-meta">2024</span></div>
+          <div class="oc-row"><span>Dean's List × 2</span><span class="oc-meta">F22 &middot; F25</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Filters + Academic Journey ─── -->
+  <section id="journey-section" aria-labelledby="journey-h">
+    <div class="section-header">
+      <h2 id="journey-h">Academic Journey</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <!-- Filters -->
+    <div class="filters" role="group" aria-label="Course filters">
+      <div class="filter-row">
+        <span class="filter-label">Year</span>
+        <div id="filter-year" class="chips-row"></div>
+      </div>
+      <div class="filter-row">
+        <span class="filter-label">Status</span>
+        <div id="filter-status" class="chips-row"></div>
+      </div>
+      <div class="filter-row">
+        <span class="filter-label">Category</span>
+        <div id="filter-cat" class="chips-row"></div>
+      </div>
+      <div class="filter-row">
+        <span class="filter-label">Search</span>
+        <div class="search-wrap">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="11" cy="11" r="7"/>
+            <path d="m21 21-4.3-4.3"/>
+          </svg>
+          <input id="search" type="search" placeholder="Search by code, title, topic, or skill…" aria-label="Search courses" />
+        </div>
+      </div>
+    </div>
+
+    <p class="filter-summary" id="filter-summary" aria-live="polite"></p>
+
+    <div class="journey-wrap">
+      <!-- Gantt-style timeline: courses by category lane + activities as time-spanning bars + award markers -->
+      <div class="gantt" id="gantt" role="grid" aria-label="Gantt-style timeline of courses and activities across 4 years"></div>
+
+      <!-- Legend -->
+      <div class="legend" id="legend" aria-label="Category legend"></div>
+    </div>
+
+    <!-- Detail panel (shows selected course) -->
+    <div class="detail-panel" id="detail-panel" aria-live="polite">
+      <div class="dp-empty">Click any course pill above to see its details.</div>
+    </div>
+  </section>
+
+  <!-- ─── Progress / Summary ─── -->
+  <section id="progress" aria-labelledby="progress-h">
+    <div class="section-header">
+      <h2 id="progress-h">Progress &amp; Distribution</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="progress-grid" id="progress-grid"></div>
+  </section>
+
+  <!-- ─── Skills map ─── -->
+  <section id="skills" aria-labelledby="skills-h">
+    <div class="section-header">
+      <h2 id="skills-h">Skills Map</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="skills-cloud" id="skills-grid"></div>
+  </section>
+
+  <!-- ─── Highlighted courses ─── -->
+  <section id="highlights" aria-labelledby="highlights-h">
+    <div class="section-header">
+      <h2 id="highlights-h">Highlighted Courses</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="highlights-grid" id="highlights-grid"></div>
+  </section>
+
+  <!-- ─── CTA ─── -->
+  <section id="cta" aria-labelledby="cta-h">
+    <div class="section-header">
+      <h2 id="cta-h">Next</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="index.html">← Back to homepage</a>
+      <a class="btn btn-ghost" href="index.html#projects">View projects</a>
+      <a class="btn btn-ghost" href="https://github.com/SimonSinon" target="_blank" rel="noopener">GitHub profile ↗</a>
+      <!-- TODO: Replace href below with your resume link -->
+      <a class="btn btn-ghost" href="#" aria-disabled="true">Resume (coming soon)</a>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  Built by <a href="https://github.com/SimonSinon">Simon Sung</a> &mdash; vanilla HTML, CSS &amp; JS
+</footer>
+
+<script>
+/* =====================================================================
+ * COURSE DATA
+ * ---------------------------------------------------------------------
+ * Edit this array to update your transcript on the page.
+ * Field reference:
+ *   year      : 1 | 2 | 3 | 4
+ *   semester  : "Fall" | "Spring" | "Summer" | "Winter"
+ *   term      : human-readable label, e.g. "2022-23 Fall"
+ *   code      : course code, e.g. "COMP1021"
+ *   title     : course title
+ *   category  : "Computer Science" | "AI / ML" | "Mathematics" |
+ *               "Engineering" | "Business" | "Humanities" |
+ *               "Language" | "Other"
+ *   status    : "Completed" | "In Progress" | "Planned" | "Transferred"
+ *   credits   : number
+ *   grade     : transcript grade (or "" if not graded)
+ *   description : 1–2 sentence summary
+ *   topics    : array of topic strings
+ *   skills    : array of skill strings (used by the Skills Map)
+ *   project   : optional project / assignment description (string)
+ * ===================================================================== */
+const courses = [
+  /* ─── Year 1 · 2022-23 ─── */
+  { year:1, semester:"Fall", term:"2022-23 Fall", code:"COMP1021", title:"Introduction to Computer Science", category:"Computer Science", status:"Completed", credits:3, grade:"A+",
+    description:"This course introduces students to the world of Computer Science. Students will experience a range of fun and interesting areas from the world of computing, such as game programming, web programming, user interface design and computer graphics. These will be explored largely by programming in the Python language. For all students, except students of School of Engineering; Data Science and Technology major and Dual Degree students with Engineering as one of the degrees.",
+    topics:["Python basics","Control flow","Functions","File I/O"], skills:["Python","Programming","Problem Solving"],
+    project:"Built small Python utilities and games as weekly assignments." },
+  { year:1, semester:"Fall", term:"2022-23 Fall", code:"CORE1423", title:"Enhanced Chinese Communication", category:"Language", status:"Completed", credits:3, grade:"A-",
+    description:"Common-core course developing academic and professional Chinese communication skills, with emphasis on writing, discourse, and presentation.",
+    topics:["Writing","Presentation","Discourse"], skills:["Communication","Writing"], project:"" },
+  { year:1, semester:"Fall", term:"2022-23 Fall", code:"CORE1901", title:"Critical Thinking and Data Literacy", category:"Other", status:"Completed", credits:3, grade:"B+",
+    description:"Common-core course on cognitive foundations of university education, building critical thinking and data literacy through argumentation, reasoning, and interpretation of evidence.",
+    topics:["Logical fallacies","Argumentation","Data interpretation"], skills:["Critical Thinking","Research"], project:"" },
+  { year:1, semester:"Fall", term:"2022-23 Fall", code:"MATH1012", title:"Calculus IA", category:"Mathematics", status:"Completed", credits:4, grade:"A",
+    description:"This is an introductory course in one-variable calculus, the first in the Calculus I and II sequence, designed for students that have not taken HKDSE Mathematics Extended Module M1 or M2. Topics include functions and their limits, continuity, derivatives and rules of differentiation, applications of derivatives, and basic integral calculus.",
+    topics:["Limits","Derivatives","Integration","Series"], skills:["Mathematics","Analytical Thinking"], project:"" },
+  { year:1, semester:"Fall", term:"2022-23 Fall", code:"CORE1402", title:"English Language for University Studies", category:"Language", status:"Transferred", credits:3, grade:"T",
+    description:"Transfer credit from pre-tertiary qualifications for English Language for University Studies.",
+    topics:["Academic English"], skills:["Communication","Writing"], project:"" },
+
+  { year:1, semester:"Spring", term:"2022-23 Spring", code:"CHEM1020", title:"General Chemistry I", category:"Engineering", status:"Completed", credits:3, grade:"B+",
+    description:"This course targets at students who have acquired prior knowledge in fundamental Chemistry in high school. Key topics include atomic structure and periodicity, molecules, bonding theories, and properties of gases, liquids and solids. Other topics such as transition metals and coordination compounds, and organic molecules will be briefly reviewed.",
+    topics:["Atomic structure","Bonding","Thermodynamics"], skills:["Scientific Reasoning"], project:"" },
+  { year:1, semester:"Spring", term:"2022-23 Spring", code:"COMP2011", title:"Programming with C++", category:"Computer Science", status:"Completed", credits:4, grade:"B",
+    description:"This course covers programming and data structures using C++. In addition to basic programming concepts such as variables and control statements, students will learn about arrays, pointers, dynamic data allocation, linked lists, stacks, queues, binary trees, recursion, and the basics of object oriented programming.",
+    topics:["Pointers","Classes","Inheritance","STL"], skills:["C++","OOP","Programming"],
+    project:"Console-based C++ assignments and a small OO mini-system." },
+  { year:1, semester:"Spring", term:"2022-23 Spring", code:"CORE1403A", title:"Academic English for University Studies", category:"Language", status:"Completed", credits:3, grade:"A",
+    description:"Common-core course on academic English for university studies: argument structure, citation, written and spoken academic communication.",
+    topics:["Argument structure","Citation","Presentation"], skills:["Communication","Writing"], project:"" },
+  { year:1, semester:"Spring", term:"2022-23 Spring", code:"ELEC1100", title:"Introduction to Electro-Robot Design", category:"Engineering", status:"Completed", credits:4, grade:"A+",
+    description:"The course introduces the fundamental knowledge on the design, implementation and evaluation of a robot and its sub-systems. It covers the basic principles of analog and digital circuits as well as robot sensing and control mechanisms. Students have to apply the knowledge and principles learned to design and build a functional robot by the end of the course. Students who have completed ELEC 2200, ELEC 2350, ELEC 2400, ELEC 2420, or ELEC 3310, must obtain instructor's approval to take this course.",
+    topics:["Circuits","Sensors","Embedded C","Robot control"], skills:["Electronics","Embedded","Teamwork"],
+    project:"Team-built autonomous robot for the end-of-semester contest." },
+  { year:1, semester:"Spring", term:"2022-23 Spring", code:"MATH1014", title:"Calculus II", category:"Mathematics", status:"Completed", credits:3, grade:"B",
+    description:"This is an introductory course in one-variable calculus, the second in the MATH 1013 - MATH 1014 sequence. Topics include applications of definite integral, improper integrals, vectors, curves and parametric equations, modeling with differential equations, solving simple differential equations, infinite sequences and series, power series and Taylor series.",
+    topics:["Partial derivatives","Multiple integrals","Vector calculus"], skills:["Mathematics"], project:"" },
+
+  { year:1, semester:"Summer", term:"2022-23 Summer", code:"COMP1029J", title:"Java Programming Bridging Course", category:"Computer Science", status:"Completed", credits:1, grade:"P",
+    description:"This course introduces the Java programming language. It is intended for students who already have some experience in computer programming but wish to learn how to apply those programming skills to the Java language. The course covers basic programming topics such as variables, control statements, loops, functions, and object-oriented programming concepts. Students explore these by self-learning of course materials together with guided programming exercises. Students without the prerequisites but possess relevant programming knowledge may seek instructor's approval for enrolling in the course. Graded P or F.",
+    topics:["Java syntax","Classes","Collections"], skills:["Java","OOP"], project:"" },
+  { year:1, semester:"Summer", term:"2022-23 Summer", code:"COMP1029V", title:"Excel VBA Programming Bridging Course", category:"Other", status:"Completed", credits:1, grade:"P",
+    description:"This course introduces the VBA programming language, in the context of Microsoft Excel. It is intended for students who already have some experience in computer programming but wish to learn how to apply those programming skills to VBA, within Excel. The course covers basic programming topics, such as variables, functions and loops, to more advanced topics. Appropriate features of the Excel program are also covered. Students explore these by self-learning of course materials together with guided programming exercises. Students without the prerequisites but possess relevant programming knowledge may seek instructor's approval for enrolling in the course. Graded P or F.",
+    topics:["Macros","VBA scripting","Excel automation"], skills:["VBA","Automation"], project:"" },
+
+  /* ─── Year 2 · 2023-24 ─── */
+  { year:2, semester:"Fall", term:"2023-24 Fall", code:"COMP2012", title:"Object-Oriented Programming and Data Structures", category:"Computer Science", status:"Completed", credits:4, grade:"B+",
+    description:"To learn the fundamental concepts and techniques behind object-oriented programming. They include: abstract data types; creation, initialization, and destruction of objects; class hierarchies; polymorphism, inheritance and dynamic binding; generic programming using templates. To learn the object-oriented view of data structures: linked lists, stacks, queues, binary trees, and algorithms such as searching and hashing.",
+    topics:["Templates","Inheritance","Lists","Trees","Hashing"], skills:["C++","OOP","Data Structures"],
+    project:"Multi-week OO data-structure project." },
+  { year:2, semester:"Fall", term:"2023-24 Fall", code:"COMP2611", title:"Computer Organization", category:"Computer Science", status:"Completed", credits:4, grade:"B+",
+    description:"Inner workings of modern digital computer systems and tradeoffs at the hardware-software interface. Topics include: instructions set design, memory systems, input-output systems, interrupts and exceptions, pipelining, performance and cost analysis, assembly language programming, and a survey of advanced architectures.",
+    topics:["MIPS","Pipelining","Caches","Logic design"], skills:["Computer Architecture","Assembly"], project:"" },
+  { year:2, semester:"Fall", term:"2023-24 Fall", code:"COMP2711", title:"Discrete Mathematical Tools for Computer Science", category:"Mathematics", status:"Completed", credits:4, grade:"B+",
+    description:"Basic concepts in discrete mathematics needed for the study of computer science: enumeration techniques, basic number theory, logic and proofs, recursion and recurrences, probability theory and graph theory. The approach of this course is specifically computer science application oriented.",
+    topics:["Logic","Combinatorics","Graphs","Proofs"], skills:["Mathematics","Proof Writing"], project:"" },
+  { year:2, semester:"Fall", term:"2023-24 Fall", code:"LANG2030", title:"Technical Communication I", category:"Language", status:"Completed", credits:3, grade:"B+",
+    description:"The course provides students with a broad introduction to English within the discipline of engineering. A central aim of the course is to encourage students to analyze critically the wider social implications of engineering products and processes, through the careful examination of texts (and other media) beyond their own specific engineering field and to communicate effectively by delivering oral presentations and writing reports on topics relevant to all engineers.",
+    topics:["Technical writing","Visual communication"], skills:["Communication","Writing"], project:"" },
+  { year:2, semester:"Fall", term:"2023-24 Fall", code:"MATH2111", title:"Matrix Algebra and Applications", category:"Mathematics", status:"Completed", credits:3, grade:"B+",
+    description:"Systems of linear equations; vector spaces; linear transformations; matrix representation of linear transformations; linear operators, eigenvalues and eigenvectors; similarity invariants and canonical forms.",
+    topics:["Matrices","Eigenvalues","Vector spaces"], skills:["Mathematics","Linear Algebra"], project:"" },
+
+  { year:2, semester:"Spring", term:"2023-24 Spring", code:"COMP2211", title:"Exploring Artificial Intelligence", category:"AI / ML", status:"Completed", credits:3, grade:"B",
+    description:"This course provides a gentle introduction to artificial intelligence (AI), and emphasizes hands-on practical experiences with Python and AI software tools to explore AI applications. Interesting applications that have been covered in previous class offerings include, but are not limited to, medical diagnosis, predictions of customer behaviour and user attitudes, character recognition, spam mail detection, text and image classifications and recognitions, sentiment analysis, and retinal vessel segmentation. The course also explores recent advances and discusses the history and ethics of AI. Only for students in their first and second year of study or those with approval from instructor by applying requisite waiver.",
+    topics:["Search","Logic","Intro ML"], skills:["AI Fundamentals"], project:"" },
+  { year:2, semester:"Spring", term:"2023-24 Spring", code:"COMP3021", title:"Java Programming", category:"Computer Science", status:"Completed", credits:3, grade:"D",
+    description:"Introduction to Java programming. Fundamentals include language syntax, object-oriented programming, inheritance, polymorphism, exception handling, multithreading and lambdas. Standard libraries for input/output, graphics programming, built-in data structures. Programming for events, generics and higher-order functions.",
+    topics:["JavaFX","Generics","Threads"], skills:["Java","GUI Programming"],
+    project:"JavaFX desktop application (see COMP3021-Lab1 on GitHub)." },
+  { year:2, semester:"Spring", term:"2023-24 Spring", code:"COMP3111", title:"Software Engineering", category:"Computer Science", status:"Completed", credits:4, grade:"B+",
+    description:"Methods and tools for planning, designing, implementing, validating, and maintaining large software systems. Project work to build a software system as a team, using appropriate software engineering tools and techniques.",
+    topics:["UML","Testing","Agile","Design patterns"], skills:["Software Engineering","Teamwork","Testing"],
+    project:"Group software project (see Comp3111LEx on GitHub)." },
+  { year:2, semester:"Spring", term:"2023-24 Spring", code:"MATH2411", title:"Applied Statistics", category:"Mathematics", status:"Completed", credits:4, grade:"B+",
+    description:"A systematic introduction to statistical inference, including the necessary probabilistic background, point and interval estimation, hypothesis testing.",
+    topics:["Distributions","Hypothesis testing","Regression"], skills:["Statistics","Mathematics"], project:"" },
+  { year:2, semester:"Spring", term:"2023-24 Spring", code:"OCES1030", title:"Environmental Science", category:"Other", status:"Completed", credits:3, grade:"A-",
+    description:"The course introduces students without a science background to the general concepts of environment, natural resources, and sustainable development. Topics include pressing global, regional and local environmental issues; renewable and non-renewable energy; life-supporting systems of our planet and its biodiversity; atmosphere, air pollution and global climate change; water resources and pollution; ocean plastics and solid waste management; environmental health and toxicology. Throughout the course, students will gain a sufficient background and a better understanding of the root causes of key environmental issues. They will also become more aware of their role, as individuals, in environmental protection and sustainable development.",
+    topics:["Climate","Ecosystems","Sustainability"], skills:["Scientific Reasoning"], project:"" },
+
+  /* ─── Year 3 · 2024-25 (Fall on exchange at KTH) ─── */
+  { year:3, semester:"Fall", term:"2024-25 Fall · Exchange @ KTH", code:"COMP3511", title:"Operating Systems", category:"Computer Science", status:"Transferred", credits:3, grade:"T",
+    description:"Principles, purpose and structure of operating systems; processes, threads, and multi-threaded programming; CPU scheduling; synchronization, mutual exclusion; memory management and virtual memory; device management; file systems, security and protection.",
+    topics:["Processes","Scheduling","Memory","File systems"], skills:["Operating Systems","Systems Programming"], project:"" },
+  { year:3, semester:"Fall", term:"2024-25 Fall · Exchange @ KTH", code:"COMP4211", title:"Machine Learning", category:"AI / ML", status:"Transferred", credits:3, grade:"T",
+    description:"This course provides a comprehensive coverage of the machine learning field. It introduces the foundations of machine learning, such as optimization, regularization, and generalization. It covers several traditional machine learning algorithms and various types of neural networks, such as feedforward, convolutional, recurrent, and transformer models, as well as their applications to computer vision, natural language processing, and generative modelling. The course also includes selected advanced topics.",
+    topics:["Supervised learning","Regularization","Neural nets"], skills:["Machine Learning","Python"], project:"" },
+  { year:3, semester:"Fall", term:"2024-25 Fall · Exchange @ KTH", code:"COMPG&M", title:"Computer Science Track Course", category:"Computer Science", status:"Transferred", credits:3, grade:"T",
+    description:"Computer Science track elective taken on exchange at KTH Royal Institute of Technology and recognised as a HKUST CS major-track course.",
+    topics:["CS elective"], skills:["Computer Science"], project:"" },
+
+  { year:3, semester:"Spring", term:"2024-25 Spring", code:"COMP3211", title:"Fundamentals of Artificial Intelligence", category:"AI / ML", status:"Completed", credits:3, grade:"B+",
+    description:"This course provides a comprehensive coverage of the reasoning and decision-making aspects of artificial intelligence (AI). It covers fundamental concepts and techniques of AI, such as search, constraint satisfaction, game theory, game tree search, Markov decision processes, reinforcement learning, multi-agent systems, logic reasoning, and probabilistic reasoning.",
+    topics:["A*","CSPs","Bayes nets","MDPs"], skills:["AI Fundamentals","Algorithms"], project:"" },
+  { year:3, semester:"Spring", term:"2024-25 Spring", code:"COMP3711", title:"Design and Analysis of Algorithms", category:"Computer Science", status:"Completed", credits:3, grade:"C-",
+    description:"Techniques for designing algorithms, proving their correctness, and analyzing their running times. Topics covered include: sorting, selection, heaps, balanced search trees, divide-and-conquer, greedy algorithms, dynamic programming, and graph algorithms.",
+    topics:["Greedy","DP","Graph algorithms","NP-completeness"], skills:["Algorithms","Analysis"], project:"" },
+  { year:3, semester:"Spring", term:"2024-25 Spring", code:"COMP4021", title:"Internet Computing", category:"Computer Science", status:"Completed", credits:3, grade:"A",
+    description:"This course provides a comprehensive understanding of web development, focusing on essential browser-side and server-side techniques. Browser-side topics include creating web pages using HTML, enhancing them with CSS for styling, and incorporating visually appealing interactive content. The course also explores server-side topics such as the HTTP protocol for browser-server communication, various methods of interaction between browsers and servers, and approaches for web application development.",
+    topics:["HTTP","JavaScript","Node.js","WebSockets"], skills:["Web Development","JavaScript","Node.js"],
+    project:"Multiplayer web game (see COMP4021-CS on GitHub)." },
+  { year:3, semester:"Spring", term:"2024-25 Spring", code:"COMP4321", title:"Search Engines for Web and Enterprise Data", category:"Computer Science", status:"Completed", credits:3, grade:"B+",
+    description:"Text retrieval models, vector space model, document ranking, performance evaluation; indexing, pattern matching, relevance feedback, clustering; web search engines, authority-based ranking; enterprise data management, content creation, meta data, taxonomy, ontology; semantic web, digital libraries and knowledge management applications.",
+    topics:["Crawlers","Inverted index","TF-IDF","Ranking"], skills:["Information Retrieval","Search","Java"],
+    project:"Custom web search engine with indexer and query interface." },
+  { year:3, semester:"Spring", term:"2024-25 Spring", code:"HUMA1030", title:"Structure of the Chinese Language", category:"Humanities", status:"Completed", credits:3, grade:"A",
+    description:"The course introduces basic concepts in linguistics and how these concepts are used to describe and analyze the structure of the Chinese language, with emphasis on sounds and grammar. Moreover, similarities and differences among major Chinese dialects, especially those between Cantonese and Mandarin, will be highlighted. Characteristics of the non-Han languages spoken in the neighboring areas will also be compared with those of the Chinese dialects in order to highlight the bi-directional influences between the two groups.",
+    topics:["Phonology","Syntax","Tones"], skills:["Linguistics"], project:"" },
+  { year:3, semester:"Spring", term:"2024-25 Spring", code:"HUMA1154", title:"Photography", category:"Humanities", status:"Completed", credits:3, grade:"A",
+    description:"This course provides an overview of the various forms of Photography, explores the relationship between visual communication and art. The course will examine the collaborative process between light and graphic, concepts and skills. The increasing influences of images and trends from visual media will also be discussed.",
+    topics:["Composition","Lighting","Editing"], skills:["Visual Design","Creativity"],
+    project:"Final photo portfolio." },
+  { year:3, semester:"Spring", term:"2024-25 Spring", code:"MARK2120", title:"Marketing Management", category:"Business", status:"Completed", credits:3, grade:"A+",
+    description:"Introduction to marketing from the perspective of the decision-maker; controllable variables (product, price, promotion and distribution), uncontrollable variables (competition, law, society, technology, and economy), consumer behavior and marketing research.",
+    topics:["Segmentation","Positioning","Branding","Pricing"], skills:["Marketing","Business Strategy"],
+    project:"Team marketing plan presentation." },
+
+  { year:3, semester:"Summer", term:"2024-25 Summer", code:"COMP1991", title:"Industrial Experience", category:"Computer Science", status:"Completed", credits:0, grade:"P",
+    description:"Full-time internship training for a period of at least six weeks in an organization or company recognized by the Department for providing qualified internship training relevant to the computer science and engineering profession. Cantonese or other working languages may be used in off-campus trainings and internships, in some situations. For students of the Department of Computer Science and Engineering in their second year of study or above only. Internship coordinator's approval is required for enrollment in the course. Graded P, PP or F.",
+    topics:["Industry","Internship"], skills:["Professional Experience","Teamwork"], project:"" },
+
+  /* ─── Year 4 · 2025-26 ─── */
+  { year:4, semester:"Fall", term:"2025-26 Fall", code:"COMP1944", title:"Artificial Intelligence Ethics", category:"AI / ML", status:"Completed", credits:3, grade:"A+",
+    description:"Artificial intelligence (AI) is disrupting every sphere of our work and lives, bringing unprecedented risks to society. This introductory course surveys the explosive area of AI ethics, illuminating relevant AI concepts with no prior background needed. Fake news bots. AI driven social media displacing traditional journalism. Drone warfare. Elimination of traditional jobs. Privacy‐violating advertising. Monopolistic network effects. Biased AI decision/recognition algorithms. Deepfakes. Autonomous vehicles. Automated hedge fund trading. No area remains untouched. Policy think tanks, governments, and tech companies around the world have started paying serious attention to AI ethics. How will human civilization survive the rise of AI? What are the new rules? What are the ethical frameworks needed to avoid extinction? What are engineers’ and entrepreneurs’ ethical responsibilities? For students of the Department of Computer Science and Engineering only. Other students may seek instructor’s approval for enrollment in the course.",
+    topics:["Bias","Fairness","Privacy","Policy"], skills:["AI Ethics","Critical Thinking"], project:"" },
+  { year:4, semester:"Fall", term:"2025-26 Fall", code:"COMP4471", title:"Deep Learning in Computer Vision", category:"AI / ML", status:"Completed", credits:3, grade:"B+",
+    description:"Deep learning has significantly advanced the performance of computer vision system from object recognition to image processing. This course covers the basics and various applications of deep learning in computer vision. Students will study the details of convolutional neural networks as well as recurrent neural networks and train deep networks with end-to-end optimization, and learn deep learning based approaches for both high-level and low-level computer vision tasks such as image recognition and image enhancement. Through programming projects, students will implement, train, and test deep neural networks on cutting-edge computer vision research. Students would be required to study or do research in a final course project related to deep learning and computer vision and present their work by the end of the course.",
+    topics:["CNNs","ViT","Detection","Diffusion"], skills:["Deep Learning","Computer Vision","PyTorch"],
+    project:"Course project applying deep models to a vision task." },
+  { year:4, semester:"Fall", term:"2025-26 Fall", code:"COMP4981", title:"Final Year Project", category:"Computer Science", status:"In Progress", credits:6, grade:"PP",
+    description:"Students are expected to complete a project in an area of specialization in Computer Science and Engineering under the guidance of a faculty member. Objectives are to integrate the classroom material from several courses, and to apply them to solve practical problems. Credit load will be spread over the year. For students in the BEng in Computer Science and BEng in Computer Engineering programs under the four-year degree only.",
+    topics:["Research","System building"], skills:["Research","Engineering","Project Management"],
+    project:"FYP — see homepage for details (in progress)." },
+  { year:4, semester:"Fall", term:"2025-26 Fall", code:"EMIA2020", title:"Cross-disciplinary Design Thinking", category:"Engineering", status:"Completed", credits:3, grade:"A",
+    description:"This course focuses on user-collaborative design methods for generating inclusive product solutions that integrate stakeholder and product functionality perspectives. Students will create specified product/ process /policy /protocol /plan (5P) concept models using recursive user feedback engagement methods, experimental prototyping, and divergent and convergent ideation strategies. Featured topics include design thinking; stakeholder research; concept development, screening, and selection; and interaction design. For students enrolling in extended major programs and students with consent from the instructor.",
+    topics:["User research","Ideation","Prototyping"], skills:["Design Thinking","Prototyping","Teamwork"], project:"" },
+  { year:4, semester:"Fall", term:"2025-26 Fall", code:"FINA2203", title:"Fundamentals of Business Finance", category:"Business", status:"Completed", credits:3, grade:"A-",
+    description:"For BIBU and non-SB&M students. This course provides an introduction to corporate finance for students who may not have background in accounting and business statistics. Topics include financial statement analysis, time value of money, bond and stock valuation, capital budgeting, risk and return concepts and cost of capital.",
+    topics:["TVM","NPV/IRR","Capital structure"], skills:["Finance","Business"],
+    project:"Cheatsheet repo on GitHub (FINA2203_Cheatsheet)." },
+  { year:4, semester:"Fall", term:"2025-26 Fall", code:"ISOM2010", title:"Introduction to Information Systems", category:"Business", status:"Completed", credits:3, grade:"A-",
+    description:"Information systems (IS) is about managing the applications of IT to create business values. Topics include fundamental concepts of IS, e-commerce, digital and internet economy, web 2.0 and social networks, online advertising, personalization and privacy, digital rights management and piracy, business intelligence and decision-making, how organizations harness IS for innovative business strategies, and the socio-economic impact of IS on organizations and societies. The labs cover business problem-solving skills.",
+    topics:["IS strategy","Databases","Enterprise systems"], skills:["Information Systems","Business"], project:"" },
+  { year:4, semester:"Fall", term:"2025-26 Fall", code:"MGMT1110", title:"Introduction to Management", category:"Business", status:"Completed", credits:3, grade:"B+",
+    description:"This course provides students with a systematic approach to acquiring a solid foundation in the principles and current practices of management. The focus of the course is about the interaction between individuals (managers) and the organization. We will explore what managers do through discussion of the four fundamental functions of managers, namely planning, organizing, leading and controlling. Topics include: evolution of management theories, environmental influences on management, organizational culture, strategic management, organizational design, change management, organizational control and human resources management.",
+    topics:["Leadership","Organizations","Motivation"], skills:["Management","Business"], project:"" },
+
+  { year:4, semester:"Winter", term:"2025-26 Winter", code:"ISOM1700", title:"Critical Issues in Business Operations", category:"Business", status:"Completed", credits:3, grade:"A-",
+    description:"The course will focus on how business organizations should create and sustain value for different stakeholders in the society by designing, optimizing, and improving the operations. Successful businesses have demonstrated their sustainable competitiveness by maintaining a balanced view of economic prosperity, environmental stewardship, and social responsibility. This course will also examine how the changing perspectives of stakeholders (like government and consumers) affect the business decisions and operations.",
+    topics:["Operations","Supply chain","Process design"], skills:["Operations","Business"], project:"" },
+
+  { year:4, semester:"Spring", term:"2025-26 Spring", code:"COMP4551", title:"Large-Scale Machine Learning Systems for Foundation Models", category:"AI / ML", status:"In Progress", credits:3, grade:"",
+    description:"In recent years, foundation models have fundamentally revolutionized the state-of-the-art of artificial intelligence. Thus, the computation in the training or inference of the foundation model could be one of the most important workflows running on top of modern computer systems. This course unravels the secrets of the efficient deployment of such workflows from the system perspective.",
+    topics:["Distributed training","Parallelism","Inference"], skills:["ML Systems","Distributed Systems"], project:"" },
+  { year:4, semester:"Spring", term:"2025-26 Spring", code:"COMP4981", title:"Final Year Project", category:"Computer Science", status:"In Progress", credits:6, grade:"",
+    description:"Students are expected to complete a project in an area of specialization in Computer Science and Engineering under the guidance of a faculty member. Objectives are to integrate the classroom material from several courses, and to apply them to solve practical problems. Credit load will be spread over the year. For students in the BEng in Computer Science and BEng in Computer Engineering programs under the four-year degree only.",
+    topics:["Research","System building"], skills:["Research","Engineering","Project Management"], project:"" },
+  { year:4, semester:"Spring", term:"2025-26 Spring", code:"ECON2123", title:"Macroeconomics", category:"Business", status:"In Progress", credits:3, grade:"",
+    description:"Theory of national income determination and business fluctuation; monetary and fiscal policies; selected topics in macroeconomic policies and open economy macroeconomics. Students with non-local qualifications should seek department’s or school’s approval for enrollment in the course.",
+    topics:["GDP","Monetary policy","Fiscal policy"], skills:["Economics"], project:"" },
+  { year:4, semester:"Spring", term:"2025-26 Spring", code:"EMIA4990", title:"Interdisciplinary Capstone Design", category:"Engineering", status:"In Progress", credits:0, grade:"",
+    description:"This course is to be taken simultaneously with a Final Year or Capstone Project offered by a student’s enrolled Major. Students will apply knowledge learnt in the Extended Major and interdisciplinary problem-solving skills to solve real-world problems in their Major areas. Approval from EMIA is required to ensure the Final Year or Capstone Project integrates the knowledge of the extended AI major. If the enrolled Final Year or Capstone Project is in a major which is not the student's enrolled first major, they must also seek approval from their enrolled first major confirming that the project also integrates knowledge of their first major. Graded P or F. May be graded PP.",
+    topics:["Interdisciplinary design","Prototyping"], skills:["Design","Teamwork","Project Management"], project:"" },
+  { year:4, semester:"Spring", term:"2025-26 Spring", code:"HUMA2103", title:"Introduction to Music Composition", category:"Humanities", status:"In Progress", credits:3, grade:"",
+    description:"(1) Course Content: Through a progressive series of composition projects, students learn the organizational skill of musical composition and performances, focusing on the basics of unity and variety; promoting students' understanding of humanistic experiences, creativities and emotions. Weekly listening, reading, and composition assignments draw on a broad range of musical styles and intellectual traditions, from various cultures and historical periods. (2) Advice on the background of Students: Students are required to have the ability to sing or to play one or more musical instruments (e.g. Grade 3 in Royal Schools Music Exam or equivalent). The ability to read music and the knowledge to music notation are preferable, but not required.",
+    topics:["Harmony","Form","Notation"], skills:["Music","Creativity"], project:"" },
+  { year:4, semester:"Spring", term:"2025-26 Spring", code:"ISOM3360", title:"Data Mining for Business Analytics", category:"AI / ML", status:"In Progress", credits:3, grade:"",
+    description:"This course covers the fundamental concepts, technologies, and applications of business analytics to help firms gain a competitive advantage in the era of Big Data. Topics include text mining, predictive analytics, search engine strategy, social network analysis, cloud computing, etc. Students will gain hands-on experience with popular data analytical tools.",
+    topics:["Classification","Clustering","Association rules"], skills:["Data Mining","Analytics","Python"], project:"" },
+];
+
+/* =====================================================================
+ * HIGHLIGHTED COURSES
+ * Edit these to feature your favourite / most meaningful courses.
+ * ===================================================================== */
+const highlights = [
+  { code:"COMP4981", title:"Final Year Project — Edge-AI Elderly Monitoring",
+    why:"My biggest engineering undertaking: a full edge-AI system, not just a model.",
+    project:"Trained 5 spatio-temporal/graph HAR models on NTU RGB+D; accelerated inference on Jetson Orin NX with TensorRT, hardware optical flow, and a multi-threaded CUDA pipeline; Golang/MQTT backend + React Native dashboard with LLM chatbot.",
+    learned:"93.83% fusion accuracy, 100% fall-detection, and a 9.6× throughput gain on edge hardware." },
+  { code:"COMP4471", title:"Deep Learning in Computer Vision",
+    why:"Brought theory and intuition together for the models I care most about.",
+    project:"Course project applying modern vision architectures to a custom task.",
+    learned:"CNNs, transformers, training pipelines, and practical PyTorch." },
+  { code:"COMP4021", title:"Internet Computing",
+    why:"Reshaped how I think about web systems and motivated several side projects.",
+    project:"Built a real-time multiplayer browser game (COMP4021-CS).",
+    learned:"End-to-end web stack, WebSockets, and product-style iteration." },
+  { code:"MARK2120", title:"Marketing Management",
+    why:"Changed how I frame technical work for real users and customers.",
+    project:"Team marketing strategy and presentation.",
+    learned:"Segmentation, positioning, brand thinking — useful for any product." },
+];
+
+/* =====================================================================
+ * RENDERING
+ * ===================================================================== */
+const CATEGORIES = ["Computer Science","AI / ML","Mathematics","Engineering","Business","Humanities","Language","Other"];
+const STATUSES   = ["Completed","In Progress","Planned","Transferred"];
+const SEMESTERS  = ["Fall","Winter","Spring","Summer"];
+const YEARS      = [1,2,3,4];
+
+const state = {
+  year: "All",
+  semester: "All",
+  status: "All",
+  category: "All",
+  search: "",
+  selectedIdx: null,
+};
+
+/* ── Meteors ── */
+(function () {
+  const container = document.getElementById('meteors');
+  for (let i = 0; i < 14; i++) {
+    const m = document.createElement('div');
+    m.className = 'meteor';
+    const top  = Math.random() * 60 - 10;
+    const left = Math.random() * 120 - 10;
+    const dur  = 4 + Math.random() * 6;
+    const del  = Math.random() * 12;
+    const size = 0.8 + Math.random() * 1.4;
+    m.style.cssText = `
+      top:${top}%;left:${left}%;
+      width:${size}px;height:${80 + Math.random()*80}px;
+      animation-duration:${dur}s;animation-delay:${del}s;
+      opacity:${0.4 + Math.random()*0.6};
+    `;
+    container.appendChild(m);
+  }
+})();
+
+/* ── Helpers ── */
+const statusClass = s => "tag-status-" + s.replace(/\s+/g, "");
+const gradeClass = g => {
+  if (!g) return "";
+  if (/^A/.test(g))   return "high";
+  if (/^B/.test(g))   return "mid";
+  if (/^[CDF]/.test(g)) return "low";
+  return "";
+};
+
+function categoryColor(cat) {
+  switch (cat) {
+    case "Computer Science": return "var(--cat-cs)";
+    case "AI / ML":          return "var(--cat-ai)";
+    case "Mathematics":      return "var(--cat-math)";
+    case "Engineering":      return "var(--cat-eng)";
+    case "Business":         return "var(--cat-biz)";
+    case "Humanities":       return "var(--cat-huma)";
+    case "Language":         return "var(--cat-lang)";
+    default:                 return "var(--cat-other)";
+  }
+}
+
+function matches(c) {
+  if (state.year     !== "All" && c.year     !== state.year)     return false;
+  if (state.semester !== "All" && c.semester !== state.semester) return false;
+  if (state.status   !== "All" && c.status   !== state.status)   return false;
+  if (state.category !== "All" && c.category !== state.category) return false;
+  if (state.search) {
+    const q = state.search.toLowerCase();
+    const hay = [
+      c.code, c.title, c.description,
+      ...(c.topics || []), ...(c.skills || []),
+    ].join(" ").toLowerCase();
+    if (!hay.includes(q)) return false;
+  }
+  return true;
+}
+
+/* ── Stats ── */
+function renderStats() {
+  const total       = courses.length;
+  const completed   = courses.filter(c => c.status === "Completed" || c.status === "Transferred").length;
+  const inProgress  = courses.filter(c => c.status === "In Progress").length;
+  const csCount     = courses.filter(c => c.category === "Computer Science" || c.category === "AI / ML").length;
+  const electives   = courses.filter(c => ["Humanities","Business","Language","Other"].includes(c.category)).length;
+  const years       = "4";
+
+  const data = [
+    { num: total,      label: "Total courses" },
+    { num: completed,  label: "Completed" },
+    { num: inProgress, label: "In progress" },
+    { num: csCount,    label: "CS / AI courses" },
+    { num: electives,  label: "Electives" },
+    { num: years,      label: "Academic years" },
+  ];
+  document.getElementById('stats').innerHTML = data.map(d => `
+    <div class="stat">
+      <div class="stat-num">${d.num}</div>
+      <div class="stat-label">${d.label}</div>
+    </div>
+  `).join("");
+}
+
+/* ── Filter chips ── */
+function renderFilters() {
+  const buildChips = (containerId, key, values, formatter = v => v) => {
+    const el = document.getElementById(containerId);
+    if (!el) return;
+    el.innerHTML = "";
+    const all = document.createElement('button');
+    all.type = 'button';
+    all.className = 'chip' + (state[key] === "All" ? " active" : "");
+    all.textContent = "All";
+    all.addEventListener('click', () => { state[key] = "All"; renderFilters(); renderGantt(); });
+    el.appendChild(all);
+    values.forEach(v => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'chip' + (state[key] === v ? " active" : "");
+      btn.textContent = formatter(v);
+      btn.addEventListener('click', () => {
+        state[key] = state[key] === v ? "All" : v;
+        renderFilters(); renderGantt();
+      });
+      el.appendChild(btn);
+    });
+  };
+  buildChips('filter-year',   'year',     YEARS,      y => "Year " + y);
+  buildChips('filter-status', 'status',   STATUSES);
+  buildChips('filter-cat',    'category', CATEGORIES);
+}
+
+/* ── Timeline data: award markers + multi-semester activity bars ── */
+const SEM_ORDER = { Fall:0, Winter:1, Spring:2, Summer:3 };
+function slotCol(year, sem) { return 2 + (year - 1) * 4 + SEM_ORDER[sem]; }
+
+const CATEGORY_LANES = [
+  { id:'cs',   label:'CS & SE',           sub:'core engineering',  cats:['Computer Science','Engineering'] },
+  { id:'ai',   label:'AI & Math',         sub:'extended major',    cats:['AI / ML','Mathematics'] },
+  { id:'biz',  label:'Business',          sub:'minor',             cats:['Business'] },
+  { id:'huma', label:'Humanities & Lang', sub:'common core',       cats:['Humanities','Language','Other'] },
+];
+
+const AWARDS = [
+  { year:1, semester:'Fall',   label:"Dean's List · Fall 2022" },
+  { year:3, semester:'Fall',   label:"Chiang Chen Overseas Exchange Scholarship · Jul 2024" },
+  { year:4, semester:'Fall',   label:"Code for Good Hackathon — 1st Runner-Up (JPMorganChase) · Nov 2025" },
+  { year:4, semester:'Fall',   label:"Dean's List · Fall 2025" },
+  { year:4, semester:'Spring', label:"GS1 IoT Data Hackathon — Finalist · Mar–Apr 2026" },
+];
+
+const ACTIVITIES = [
+  // lane name (label), kind (color), label, start [year, sem], end [year, sem], meta (short date), detail (tooltip)
+  { lane:'Leadership',  kind:'role',    label:"President — HKUST Chinese Orchestra", start:[1,'Spring'], end:[3,'Winter'], meta:"Mar 23 – Feb 25", detail:"Led 25 musicians; organised 6 concerts incl. Annual & Joint-U." },
+  { lane:'Leadership',  kind:'role',    label:"ITSO Student Helper",                start:[1,'Summer'], end:[4,'Summer'], meta:"Jul 23 – now",   detail:"HKUST IT Service Office — IT consultation & equipment, ~5h/week." },
+  { lane:'Internships', kind:'intern',  label:"HKU TTO — IT Programmer",            start:[2,'Summer'], end:[2,'Summer'], meta:"Jun–Aug 24",     detail:"Technology Transfer Office, HKU — MySQL/JS/PHP web fixes + multi-platform e-Form." },
+  { lane:'Internships', kind:'role',    label:"USThing — React Native Dev",         start:[2,'Summer'], end:[3,'Fall'],   meta:"May–Nov 24",     detail:"Volunteer dev team — path advisor, timetable, room booking." },
+  { lane:'Internships', kind:'intern',  label:"OOCL — ISD Intern (CTS)",            start:[3,'Summer'], end:[3,'Summer'], meta:"Jun–Aug 25",     detail:"90+ tasks, RAG file-validation system, CI refactor, Power Automate flows." },
+  { lane:'Exchange',    kind:'event',   label:"KTH Royal Institute — Stockholm",    start:[3,'Fall'],   end:[3,'Winter'], meta:"Aug 24 – Jan 25", detail:"Exchange semester, Sweden — ICT, robotics & speech tech courses." },
+  { lane:'Project',     kind:'project', label:"Final Year Project — Edge-AI HAR",   start:[3,'Summer'], end:[4,'Spring'], meta:"May 25 – Apr 26", detail:"Elderly monitoring on Jetson Orin NX — 93.83% fusion acc, 9.6× throughput." },
+];
+
+/* ── Category legend ── */
+function renderLegend() {
+  const el = document.getElementById('legend');
+  el.innerHTML = CATEGORIES.map(cat =>
+    `<span class="legend-item"><span class="legend-swatch" style="background:${categoryColor(cat)};"></span>${cat}</span>`
+  ).join("");
+}
+
+/* ── Course pill ── */
+function pillHTML(c, idx) {
+  const color = categoryColor(c.category);
+  const cls = ["pill"];
+  if (c.status === "In Progress") cls.push("in-progress");
+  if (c.status === "Transferred") cls.push("transferred");
+  if (!matches(c)) cls.push("dim");
+  if (state.selectedIdx === idx) cls.push("selected");
+  const mark = c.status === "In Progress" ? '<span class="pill-mark"></span>' : '';
+  const title = `${c.code} — ${c.title} (${c.status}${c.credits ? ', ' + c.credits + ' cr' : ''})`;
+  return `<button type="button" class="${cls.join(' ')}" style="--pc:${color};" data-idx="${idx}" title="${title.replace(/"/g,'&quot;')}" aria-label="${title.replace(/"/g,'&quot;')}">${c.code}${mark}</button>`;
+}
+
+/* ── Gantt-style timeline render ── */
+function renderGantt() {
+  // filter summary
+  const visible = courses.filter(matches).length;
+  const summaryEl = document.getElementById('filter-summary');
+  if (summaryEl) summaryEl.textContent = `${visible} of ${courses.length} courses highlighted`;
+
+  const el = document.getElementById('gantt');
+  let row = 1;
+  let h = '';
+
+  // Row 1: Year heads
+  for (let y = 1; y <= 4; y++) {
+    const yearLabel = (2021 + y) + "–" + String(2022 + y).slice(2);
+    h += `<div class="g-year-head" style="grid-row:${row}; grid-column: ${2 + (y-1)*4} / span 4">Year ${y}<span class="g-year-sub">${yearLabel}</span></div>`;
+  }
+  row++;
+  // Row 2: Semester heads
+  for (let y = 1; y <= 4; y++) {
+    SEMESTERS.forEach((s, si) => {
+      h += `<div class="g-sem-head sem-${s}" style="grid-row:${row}; grid-column:${2 + (y-1)*4 + si}">${s.slice(0,2)}</div>`;
+    });
+  }
+  row++;
+
+  // Section label: Courses
+  h += `<div class="g-section-label" style="grid-row:${row}">Courses by track</div>`;
+  row++;
+
+  // Course lanes
+  CATEGORY_LANES.forEach(lane => {
+    const total = courses.filter(c => lane.cats.includes(c.category)).length;
+    h += `<div class="g-lane-label" style="grid-row:${row}">${lane.label}<span class="g-lane-sub">${total} courses · ${lane.sub}</span></div>`;
+    for (let y = 1; y <= 4; y++) {
+      SEMESTERS.forEach((s, si) => {
+        const yearAlt = (y % 2 === 0) ? ' year-alt' : '';
+        const items = courses
+          .map((c, i) => ({ c, i }))
+          .filter(({ c }) => c.year === y && c.semester === s && lane.cats.includes(c.category));
+        h += `<div class="g-cell${yearAlt}" style="grid-row:${row}; grid-column:${2 + (y-1)*4 + si}">`
+          + items.map(({ c, i }) => pillHTML(c, i)).join('')
+          + `</div>`;
+      });
+    }
+    row++;
+  });
+
+  // Section label: Activities
+  h += `<div class="g-section-label" style="grid-row:${row}">Internships, exchange, leadership &amp; project</div>`;
+  row++;
+
+  // Activity lanes (one bar per activity, grouped by lane name)
+  const laneOrder = ['Internships', 'Exchange', 'Leadership', 'Project'];
+  const laneSub  = { Internships:'4 stints', Exchange:'1 semester', Leadership:'2 long-term roles', Project:'12 months' };
+  laneOrder.forEach(laneName => {
+    const acts = ACTIVITIES.filter(a => a.lane === laneName);
+    if (acts.length === 0) return;
+    h += `<div class="g-lane-label" style="grid-row:${row} / span ${acts.length}; align-self:center;">${laneName}<span class="g-lane-sub">${laneSub[laneName] || ''}</span></div>`;
+    acts.forEach(a => {
+      // Background slot cells for visual alignment
+      for (let y = 1; y <= 4; y++) {
+        SEMESTERS.forEach((s, si) => {
+          const yearAlt = (y % 2 === 0) ? ' year-alt' : '';
+          h += `<div class="g-cell activity-bg${yearAlt}" style="grid-row:${row}; grid-column:${2 + (y-1)*4 + si}"></div>`;
+        });
+      }
+      // The bar itself spans from start slot to end slot (end inclusive => +1)
+      const startCol = slotCol(a.start[0], a.start[1]);
+      const endCol   = slotCol(a.end[0],   a.end[1]) + 1;
+      h += `<div class="g-bar kind-${a.kind}" style="grid-row:${row}; grid-column:${startCol} / ${endCol};" title="${a.detail.replace(/"/g,'&quot;')}">${a.label}<span class="g-bar-meta">${a.meta}</span></div>`;
+      row++;
+    });
+  });
+
+  // Awards lane (single-slot diamond markers)
+  h += `<div class="g-lane-label" style="grid-row:${row}">Awards<span class="g-lane-sub">${AWARDS.length} milestones</span></div>`;
+  for (let y = 1; y <= 4; y++) {
+    SEMESTERS.forEach((s, si) => {
+      const yearAlt = (y % 2 === 0) ? ' year-alt' : '';
+      const aws = AWARDS.filter(a => a.year === y && a.semester === s);
+      h += `<div class="g-cell g-award-cell activity-bg${yearAlt}" style="grid-row:${row}; grid-column:${2 + (y-1)*4 + si}">`
+        + aws.map(a => `<span class="g-award" title="${a.label.replace(/"/g,'&quot;')}" aria-label="${a.label.replace(/"/g,'&quot;')}"></span>`).join('')
+        + `</div>`;
+    });
+  }
+  row++;
+
+  el.innerHTML = h;
+
+  // Wire pills
+  el.querySelectorAll('.pill').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const idx = Number(btn.dataset.idx);
+      state.selectedIdx = state.selectedIdx === idx ? null : idx;
+      renderGantt();
+      renderDetail();
+      if (state.selectedIdx !== null && window.innerWidth < 760) {
+        document.getElementById('detail-panel')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    });
+  });
+}
+
+/* ── Detail panel ── */
+function renderDetail() {
+  const el = document.getElementById('detail-panel');
+  const idx = state.selectedIdx;
+  if (idx === null || idx === undefined || !courses[idx]) {
+    el.classList.remove('has-selection');
+    el.innerHTML = `<div class="dp-empty">Click any course pill above to see its details.</div>`;
+    return;
+  }
+  const c = courses[idx];
+  const color = categoryColor(c.category);
+  const topics = (c.topics || []).map(t => `<span class="hashtag">${t}</span>`).join("");
+  const skills = (c.skills || []).map(s => `<span class="hashtag skill">${s}</span>`).join("");
+  const projectHTML = c.project ? `<div class="dp-project"><strong>Project:</strong>${c.project}</div>` : "";
+  const descHTML = c.description ? `
+    <button class="dp-toggle" type="button" aria-expanded="false">
+      <span class="dp-toggle-label">Show full description</span>
+      <span class="arrow" aria-hidden="true">▾</span>
+    </button>
+    <div class="dp-description">${c.description}</div>
+  ` : "";
+
+  el.classList.add('has-selection');
+  el.style.borderColor = `color-mix(in srgb, ${color} 40%, var(--border))`;
+  el.innerHTML = `
+    <div class="dp-top">
+      <div class="dp-code-title">
+        <span class="dp-code" style="color:${color};">${c.code}</span>
+        <span class="dp-title">${c.title}</span>
+        <span class="dp-term">${c.term}</span>
+      </div>
+    </div>
+    <div class="dp-meta">
+      <span class="tag ${statusClass(c.status)}"><span class="tag-dot"></span>${c.status}</span>
+      <span class="tag tag-category" style="border-color:${color}66;color:${color};">${c.category}</span>
+      <span class="tag tag-credit">${c.credits} cr</span>
+    </div>
+    <div class="dp-body">
+      ${topics ? `<div class="dp-hashtags">${topics}</div>` : ""}
+      ${skills ? `<div class="dp-hashtags">${skills}</div>` : ""}
+      ${projectHTML}
+      ${descHTML}
+    </div>
+  `;
+
+  // Wire description toggle
+  const toggle = el.querySelector('.dp-toggle');
+  if (toggle) {
+    const desc = el.querySelector('.dp-description');
+    const lbl = el.querySelector('.dp-toggle-label');
+    toggle.addEventListener('click', () => {
+      const open = desc.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', String(open));
+      lbl.textContent = open ? 'Hide description' : 'Show full description';
+    });
+  }
+}
+
+/* ── Progress bars ── */
+function renderProgress() {
+  const container = document.getElementById('progress-grid');
+
+  const byYear = YEARS.map(y => ({
+    label: "Year " + y, count: courses.filter(c => c.year === y).length
+  }));
+  const byCat = CATEGORIES.map(cat => ({
+    label: cat, count: courses.filter(c => c.category === cat).length
+  })).filter(x => x.count > 0);
+  const byStatus = STATUSES.map(s => ({
+    label: s, count: courses.filter(c => c.status === s).length
+  })).filter(x => x.count > 0);
+
+  const maxYear = Math.max(...byYear.map(x => x.count), 1);
+  const maxCat = Math.max(...byCat.map(x => x.count), 1);
+  const maxStatus = Math.max(...byStatus.map(x => x.count), 1);
+
+  const card = (title, rows, max) => `
+    <div class="progress-card">
+      <h4>${title}</h4>
+      ${rows.map(r => `
+        <div class="bar-row">
+          <span class="label">${r.label}</span>
+          <span class="count">${r.count}</span>
+          <div class="bar-track"><div class="bar-fill" style="width:${(r.count/max)*100}%"></div></div>
+        </div>
+      `).join("")}
+    </div>
+  `;
+
+  container.innerHTML = card("Courses per year", byYear, maxYear)
+                      + card("Courses by category", byCat, maxCat)
+                      + card("Status breakdown", byStatus, maxStatus);
+}
+
+/* ── Skills cloud ── */
+function renderSkills() {
+  const skillMap = {};
+  courses.forEach(c => {
+    (c.skills || []).forEach(s => {
+      skillMap[s] = (skillMap[s] || 0) + 1;
+    });
+  });
+  const sorted = Object.entries(skillMap).sort((a,b) => b[1] - a[1]);
+  const max = sorted[0]?.[1] || 1;
+  document.getElementById('skills-grid').innerHTML = sorted.map(([skill, count]) => {
+    const ratio = count / max;
+    const size = ratio > 0.7 ? 4 : ratio > 0.45 ? 3 : ratio > 0.2 ? 2 : 1;
+    return `<span class="skill-chip s-${size}" title="${count} course${count>1?'s':''}">${skill}<span class="sc-count">${count}</span></span>`;
+  }).join("");
+}
+
+/* ── Highlights ── */
+function renderHighlights() {
+  document.getElementById('highlights-grid').innerHTML = highlights.map(h => `
+    <article class="highlight">
+      <div class="h-code">${h.code}</div>
+      <h4>${h.title}</h4>
+      <p><strong>Why it mattered:</strong> ${h.why}</p>
+      <p><strong>Project:</strong> ${h.project}</p>
+      <p><strong>What I learned:</strong> ${h.learned}</p>
+    </article>
+  `).join("");
+}
+
+/* ── Search ── */
+document.getElementById('search').addEventListener('input', e => {
+  state.search = e.target.value.trim();
+  renderGantt();
+});
+
+/* ── Init ── */
+renderStats();
+renderFilters();
+renderLegend();
+renderGantt();
+renderDetail();
+renderProgress();
+renderSkills();
+renderHighlights();
+</script>
+
+</body>
+</html>

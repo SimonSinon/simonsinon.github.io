@@ -122,8 +122,10 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 16px;
+      gap: 12px;
+      flex-wrap: wrap;
     }
+    .topnav .nav-links { flex-wrap: wrap; }
     .topnav a.brand {
       font-weight: 700;
       letter-spacing: -0.3px;
@@ -920,12 +922,40 @@
     footer a:hover { text-decoration: underline; }
 
     /* ─── Responsive ─── */
+    @media (max-width: 880px) {
+      .topnav .nav-links a { padding: 6px 10px; font-size: 0.8rem; }
+      .journey-wrap { padding: 14px 10px; border-radius: 12px; }
+      .gantt { min-width: 980px; grid-template-columns: 96px repeat(16, minmax(52px, 1fr)); font-size: 0.66rem; }
+      .g-lane-label { padding: 4px 6px 4px 2px; font-size: 0.68rem; }
+      .g-lane-label .g-lane-sub { font-size: 0.54rem; }
+    }
     @media (max-width: 640px) {
-      .topnav { padding: 16px 16px 0; }
-      .hero { padding: 40px 16px 32px; }
-      section { padding: 0 16px 56px; }
-      .stats { padding: 0 16px; }
+      .topnav { padding: 16px 14px 0; gap: 8px; }
+      .topnav a.brand { font-size: 0.88rem; }
+      .topnav .nav-links { gap: 2px; }
+      .topnav .nav-links a { padding: 6px 8px; font-size: 0.76rem; }
+      .hero { padding: 32px 16px 28px; }
+      .hero-sub { font-size: 0.95rem; }
+      section { padding: 0 14px 48px; }
+      .stats { padding: 0 14px; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; margin: 18px auto 28px; }
+      .stat { padding: 14px 16px; }
+      .stat-num { font-size: 1.5rem; }
+      .filters { padding: 14px; }
       .filter-label { min-width: 0; width: 100%; margin-bottom: 4px; }
+      .search-wrap { min-width: 100%; }
+      .overview-grid { grid-template-columns: 1fr; }
+      .courses-grid { grid-template-columns: 1fr; }
+      .journey-wrap { padding: 12px 8px; }
+      .gantt { min-width: 880px; grid-template-columns: 84px repeat(16, minmax(46px, 1fr)); gap: 2px; font-size: 0.62rem; }
+      .g-lane-label { font-size: 0.62rem; padding: 4px 4px 4px 2px; }
+      .g-lane-label .g-lane-sub { font-size: 0.5rem; }
+      .gantt .pill { font-size: 0.55rem; padding: 2px 3px; }
+      .g-bar { font-size: 0.6rem; padding: 3px 7px; min-height: 22px; }
+      .g-award { font-size: 0.54rem; }
+    }
+    @media (max-width: 420px) {
+      .hero h1 { letter-spacing: -1px; }
+      .gantt { min-width: 820px; }
     }
 
     /* ─── Academic Journey: gantt timeline + detail panel ─── */

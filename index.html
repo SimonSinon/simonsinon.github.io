@@ -450,9 +450,18 @@
     footer a:hover { text-decoration: underline; }
 
     /* ─── Responsive ─── */
+    @media (max-width: 720px) {
+      .grid { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; }
+      .card { padding: 20px; }
+    }
     @media (max-width: 500px) {
-      .hero { padding: 72px 16px 48px; }
+      .hero { padding: 64px 16px 40px; }
+      .hero-sub { font-size: 1rem; }
       section { padding: 0 16px 56px; }
+      .grid { grid-template-columns: 1fr; gap: 14px; }
+      .btn { padding: 9px 18px; font-size: 0.85rem; }
+      .marquee-wrap { margin-bottom: 48px; }
+      .section-header h2 { font-size: 1.2rem; }
     }
   </style>
 </head>

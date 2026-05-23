@@ -1039,17 +1039,38 @@
       font-size: 0.66rem;
       font-weight: 600;
       white-space: nowrap;
-      overflow: visible;
+      overflow: hidden;
+      text-overflow: ellipsis;
       align-self: center;
-      cursor: help;
+      cursor: pointer;
       min-height: 24px;
       margin: 3px 1px;
       box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
-      transition: transform 0.15s, box-shadow 0.15s;
+      transition: transform 0.15s, box-shadow 0.15s, outline-color 0.15s;
       position: relative;
       z-index: 2;
+      border: 1px solid transparent;
+      font-family: inherit;
+      outline: 1.5px solid transparent;
+      outline-offset: 1px;
     }
     .g-bar:hover { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(0,0,0,0.35); }
+    .g-bar.selected {
+      overflow: visible;
+      z-index: 6;
+      width: max-content;
+      max-width: none;
+      justify-self: start;
+      outline-color: color-mix(in srgb, currentColor 70%, transparent);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.08);
+    }
+    .g-bar.selected .g-bar-label { overflow: visible; flex: 0 0 auto; }
+    .g-bar .g-bar-label {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      min-width: 0;
+      flex: 1 1 auto;
+    }
     .g-bar::before {
       content: '';
       width: 7px; height: 7px;
@@ -1058,31 +1079,65 @@
       flex-shrink: 0;
       box-shadow: 0 0 7px currentColor;
     }
-    .g-bar .g-bar-meta { font-size: 0.6rem; opacity: 0.75; font-weight: 500; margin-left: auto; }
-    .g-bar.kind-intern  { color:#6ee7b7; background: linear-gradient(90deg, rgba(16,185,129,0.22), rgba(16,185,129,0.10)); border:1px solid rgba(16,185,129,0.5); }
-    .g-bar.kind-event   { color:#a5b4fc; background: linear-gradient(90deg, rgba(99,102,241,0.22), rgba(99,102,241,0.10)); border:1px solid rgba(99,102,241,0.5); }
-    .g-bar.kind-role    { color:#f9a8d4; background: linear-gradient(90deg, rgba(236,72,153,0.22), rgba(236,72,153,0.10)); border:1px solid rgba(236,72,153,0.5); }
-    .g-bar.kind-project { color:#67e8f9; background: linear-gradient(90deg, rgba(6,182,212,0.22), rgba(6,182,212,0.10)); border:1px solid rgba(6,182,212,0.5); }
+    .g-bar .g-bar-meta { font-size: 0.6rem; opacity: 0.75; font-weight: 500; flex-shrink: 0; white-space: nowrap; }
+    .g-bar:not(.selected) .g-bar-meta { display: none; }
+    .g-bar.selected .g-bar-meta { margin-left: 4px; padding-left: 8px; border-left: 1px solid color-mix(in srgb, currentColor 40%, transparent); }
+    .g-bar.kind-intern  { color:#6ee7b7; background: linear-gradient(90deg, rgba(16,185,129,0.22), rgba(16,185,129,0.10)); border-color: rgba(16,185,129,0.5); }
+    .g-bar.kind-event   { color:#a5b4fc; background: linear-gradient(90deg, rgba(99,102,241,0.22), rgba(99,102,241,0.10)); border-color: rgba(99,102,241,0.5); }
+    .g-bar.kind-role    { color:#f9a8d4; background: linear-gradient(90deg, rgba(236,72,153,0.22), rgba(236,72,153,0.10)); border-color: rgba(236,72,153,0.5); }
+    .g-bar.kind-project { color:#67e8f9; background: linear-gradient(90deg, rgba(6,182,212,0.22), rgba(6,182,212,0.10)); border-color: rgba(6,182,212,0.5); }
 
-    /* Award diamond markers */
+    /* Award chip markers */
     .g-award {
-      width: 16px; height: 16px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 7px 3px 6px;
+      border-radius: 999px;
+      font-size: 0.58rem;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+      color: #fde68a;
+      background: linear-gradient(135deg, rgba(245,158,11,0.22), rgba(245,158,11,0.08));
+      border: 1px solid rgba(245,158,11,0.55);
+      box-shadow: 0 0 12px rgba(245,158,11,0.18), inset 0 1px 0 rgba(255,255,255,0.06);
+      cursor: pointer;
+      white-space: nowrap;
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-family: inherit;
+      transition: transform 0.15s, box-shadow 0.15s, outline-color 0.15s;
+      outline: 1.5px solid transparent;
+      outline-offset: 1px;
+      position: relative;
+      z-index: 2;
+    }
+    .g-award::before {
+      content: '';
+      width: 6px; height: 6px;
       transform: rotate(45deg);
       background: linear-gradient(135deg, #fde68a, #f59e0b);
-      border: 1px solid rgba(245,158,11,0.65);
-      box-shadow: 0 0 10px rgba(245,158,11,0.55);
-      align-self: center;
-      margin: auto;
-      cursor: help;
+      box-shadow: 0 0 6px rgba(245,158,11,0.7);
       flex-shrink: 0;
     }
+    .g-award:hover { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(245,158,11,0.25), inset 0 1px 0 rgba(255,255,255,0.08); }
+    .g-award.selected {
+      overflow: visible;
+      z-index: 6;
+      width: max-content;
+      max-width: none;
+      align-self: start;
+      outline-color: rgba(245,158,11,0.8);
+      box-shadow: 0 10px 28px rgba(245,158,11,0.35), inset 0 1px 0 rgba(255,255,255,0.1);
+    }
     .g-award-cell {
-      min-height: 30px;
-      padding: 4px;
+      min-height: 32px;
+      padding: 3px;
       display: flex;
-      gap: 6px;
-      flex-wrap: wrap;
-      align-items: center;
+      flex-direction: column;
+      gap: 3px;
+      align-items: stretch;
       justify-content: center;
     }
 
@@ -1101,8 +1156,8 @@
 
     /* Smaller pills inside gantt to fit narrow slots */
     .gantt .pill {
-      font-size: 0.62rem;
-      padding: 3px 6px;
+      font-size: 0.6rem;
+      padding: 3px 4px;
       border-radius: 4px;
       min-width: 0;
       max-width: 100%;
@@ -1110,7 +1165,8 @@
       text-overflow: ellipsis;
       text-align: center;
       display: block;
-      letter-spacing: 0.2px;
+      letter-spacing: 0.1px;
+      font-variant-numeric: tabular-nums;
     }
     .gantt .pill .pill-mark { width: 4px; height: 4px; margin-left: 3px; }
 
@@ -1152,12 +1208,6 @@
       background: currentColor;
     }
     .pill.in-progress .pill-mark { animation: pulse-dot 2s ease-in-out infinite; }
-    .pill.transferred { font-style: italic; }
-    .pill.transferred::before {
-      content: '↗';
-      margin-right: 3px;
-      opacity: 0.7;
-    }
 
     /* Category legend */
     .legend {
@@ -1756,6 +1806,8 @@ const state = {
   category: "All",
   search: "",
   selectedIdx: null,
+  selectedActivity: null,
+  selectedAward: null,
 };
 
 /* ── Meteors ── */
@@ -1884,22 +1936,22 @@ const CATEGORY_LANES = [
 ];
 
 const AWARDS = [
-  { year:1, semester:'Fall',   label:"Dean's List · Fall 2022" },
-  { year:3, semester:'Fall',   label:"Chiang Chen Overseas Exchange Scholarship · Jul 2024" },
-  { year:4, semester:'Fall',   label:"Code for Good Hackathon — 1st Runner-Up (JPMorganChase) · Nov 2025" },
-  { year:4, semester:'Fall',   label:"Dean's List · Fall 2025" },
-  { year:4, semester:'Spring', label:"GS1 IoT Data Hackathon — Finalist · Mar–Apr 2026" },
+  { year:1, semester:'Fall',   short:"Dean's List F22", label:"Dean's List · Fall 2022",                                              detail:"Top academic performance, Fall 2022 semester." },
+  { year:3, semester:'Fall',   short:"Chiang Chen",     label:"Chiang Chen Overseas Exchange Scholarship",                          detail:"Awarded Jul 2024 to support the KTH exchange semester in Sweden." },
+  { year:4, semester:'Fall',   short:"Code for Good",   label:"Code for Good Hackathon — 1st Runner-Up (JPMorganChase)",            detail:"JPMorganChase hackathon, Hong Kong · Nov 2025 — placed 2nd out of all teams." },
+  { year:4, semester:'Fall',   short:"Dean's List F25", label:"Dean's List · Fall 2025",                                              detail:"Top academic performance, Fall 2025 semester." },
+  { year:4, semester:'Spring', short:"GS1 IoT",         label:"GS1 IoT Data Hackathon — Finalist",                                  detail:"GS1 Hong Kong IoT Data Hackathon · Mar–Apr 2026 — reached finalist round." },
 ];
 
 const ACTIVITIES = [
-  // lane name (label), kind (color), label, start [year, sem], end [year, sem], meta (short date), detail (tooltip)
-  { lane:'Leadership',  kind:'role',    label:"President — HKUST Chinese Orchestra", start:[1,'Spring'], end:[3,'Winter'], meta:"Mar 23 – Feb 25", detail:"Led 25 musicians; organised 6 concerts incl. Annual & Joint-U." },
-  { lane:'Leadership',  kind:'role',    label:"ITSO Student Helper",                start:[1,'Summer'], end:[4,'Summer'], meta:"Jul 23 – now",   detail:"HKUST IT Service Office — IT consultation & equipment, ~5h/week." },
-  { lane:'Internships', kind:'intern',  label:"HKU TTO — IT Programmer",            start:[2,'Summer'], end:[2,'Summer'], meta:"Jun–Aug 24",     detail:"Technology Transfer Office, HKU — MySQL/JS/PHP web fixes + multi-platform e-Form." },
-  { lane:'Internships', kind:'role',    label:"USThing — React Native Dev",         start:[2,'Summer'], end:[3,'Fall'],   meta:"May–Nov 24",     detail:"Volunteer dev team — path advisor, timetable, room booking." },
-  { lane:'Internships', kind:'intern',  label:"OOCL — ISD Intern (CTS)",            start:[3,'Summer'], end:[3,'Summer'], meta:"Jun–Aug 25",     detail:"90+ tasks, RAG file-validation system, CI refactor, Power Automate flows." },
-  { lane:'Exchange',    kind:'event',   label:"KTH Royal Institute — Stockholm",    start:[3,'Fall'],   end:[3,'Winter'], meta:"Aug 24 – Jan 25", detail:"Exchange semester, Sweden — ICT, robotics & speech tech courses." },
-  { lane:'Project',     kind:'project', label:"Final Year Project — Edge-AI HAR",   start:[3,'Summer'], end:[4,'Spring'], meta:"May 25 – Apr 26", detail:"Elderly monitoring on Jetson Orin NX — 93.83% fusion acc, 9.6× throughput." },
+  // lane name (label), kind (color), short (collapsed bar text), label (full title), start [year, sem], end [year, sem], meta (short date), detail (long description)
+  { lane:'Leadership',  kind:'role',    short:'Orchestra Pres.', label:"President — HKUST Chinese Orchestra", start:[1,'Spring'], end:[3,'Winter'], meta:"Mar 23 – Feb 25", detail:"Led 25 musicians; organised 6 concerts incl. Annual & Joint-U." },
+  { lane:'Leadership',  kind:'role',    short:'ITSO Helper',    label:"ITSO Student Helper",                start:[1,'Summer'], end:[4,'Summer'], meta:"Jul 23 – now",   detail:"HKUST IT Service Office — IT consultation & equipment, ~5h/week." },
+  { lane:'Internships', kind:'intern',  short:'HKU TTO',        label:"HKU TTO — IT Programmer",            start:[2,'Summer'], end:[2,'Summer'], meta:"Jun–Aug 24",     detail:"Technology Transfer Office, HKU — MySQL/JS/PHP web fixes + multi-platform e-Form." },
+  { lane:'Internships', kind:'role',    short:'USThing',        label:"USThing — React Native Dev",         start:[2,'Summer'], end:[3,'Fall'],   meta:"May–Nov 24",     detail:"Volunteer dev team — path advisor, timetable, room booking." },
+  { lane:'Internships', kind:'intern',  short:'OOCL',           label:"OOCL — ISD Intern (CTS)",            start:[3,'Summer'], end:[3,'Summer'], meta:"Jun–Aug 25",     detail:"90+ tasks, RAG file-validation system, CI refactor, Power Automate flows." },
+  { lane:'Exchange',    kind:'event',   short:'KTH Exchange',   label:"KTH Royal Institute — Stockholm",    start:[3,'Fall'],   end:[3,'Winter'], meta:"Aug 24 – Jan 25", detail:"Exchange semester, Sweden — ICT, robotics & speech tech courses." },
+  { lane:'Project',     kind:'project', short:'FYP — Edge-AI',  label:"Final Year Project — Edge-AI HAR",   start:[3,'Summer'], end:[4,'Spring'], meta:"May 25 – Apr 26", detail:"Elderly monitoring on Jetson Orin NX — 93.83% fusion acc, 9.6× throughput." },
 ];
 
 /* ── Category legend ── */
@@ -1992,19 +2044,26 @@ function renderGantt() {
       // The bar itself spans from start slot to end slot (end inclusive => +1)
       const startCol = slotCol(a.start[0], a.start[1]);
       const endCol   = slotCol(a.end[0],   a.end[1]) + 1;
-      h += `<div class="g-bar kind-${a.kind}" style="grid-row:${row}; grid-column:${startCol} / ${endCol};" title="${a.detail.replace(/"/g,'&quot;')}">${a.label}<span class="g-bar-meta">${a.meta}</span></div>`;
+      const aIdx = ACTIVITIES.indexOf(a);
+      const sel = state.selectedActivity === aIdx ? ' selected' : '';
+      const text = state.selectedActivity === aIdx ? a.label : a.short;
+      h += `<button type="button" class="g-bar kind-${a.kind}${sel}" data-actidx="${aIdx}" style="grid-row:${row}; grid-column:${startCol} / ${endCol};" title="${a.label.replace(/"/g,'&quot;')} · ${a.meta.replace(/"/g,'&quot;')}"><span class="g-bar-label">${text}</span><span class="g-bar-meta">${a.meta}</span></button>`;
       row++;
     });
   });
 
-  // Awards lane (single-slot diamond markers)
+  // Awards lane (clickable chips)
   h += `<div class="g-lane-label" style="grid-row:${row}">Awards<span class="g-lane-sub">${AWARDS.length} milestones</span></div>`;
   for (let y = 1; y <= 4; y++) {
     SEMESTERS.forEach((s, si) => {
       const yearAlt = (y % 2 === 0) ? ' year-alt' : '';
-      const aws = AWARDS.filter(a => a.year === y && a.semester === s);
+      const aws = AWARDS.map((a, i) => ({ a, i })).filter(({ a }) => a.year === y && a.semester === s);
       h += `<div class="g-cell g-award-cell activity-bg${yearAlt}" style="grid-row:${row}; grid-column:${2 + (y-1)*4 + si}">`
-        + aws.map(a => `<span class="g-award" title="${a.label.replace(/"/g,'&quot;')}" aria-label="${a.label.replace(/"/g,'&quot;')}"></span>`).join('')
+        + aws.map(({ a, i }) => {
+          const sel = state.selectedAward === i ? ' selected' : '';
+          const text = state.selectedAward === i ? a.label : a.short;
+          return `<button type="button" class="g-award${sel}" data-awidx="${i}" title="${a.label.replace(/"/g,'&quot;')}">${text}</button>`;
+        }).join('')
         + `</div>`;
     });
   }
@@ -2017,9 +2076,41 @@ function renderGantt() {
     btn.addEventListener('click', () => {
       const idx = Number(btn.dataset.idx);
       state.selectedIdx = state.selectedIdx === idx ? null : idx;
+      state.selectedActivity = null;
+      state.selectedAward = null;
       renderGantt();
       renderDetail();
       if (state.selectedIdx !== null && window.innerWidth < 760) {
+        document.getElementById('detail-panel')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    });
+  });
+
+  // Wire activity bars
+  el.querySelectorAll('.g-bar').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const i = Number(btn.dataset.actidx);
+      state.selectedActivity = state.selectedActivity === i ? null : i;
+      state.selectedIdx = null;
+      state.selectedAward = null;
+      renderGantt();
+      renderDetail();
+      if (state.selectedActivity !== null && window.innerWidth < 760) {
+        document.getElementById('detail-panel')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    });
+  });
+
+  // Wire award chips
+  el.querySelectorAll('.g-award').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const i = Number(btn.dataset.awidx);
+      state.selectedAward = state.selectedAward === i ? null : i;
+      state.selectedIdx = null;
+      state.selectedActivity = null;
+      renderGantt();
+      renderDetail();
+      if (state.selectedAward !== null && window.innerWidth < 760) {
         document.getElementById('detail-panel')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       }
     });
@@ -2029,10 +2120,67 @@ function renderGantt() {
 /* ── Detail panel ── */
 function renderDetail() {
   const el = document.getElementById('detail-panel');
+
+  // Award selection
+  if (state.selectedAward != null && AWARDS[state.selectedAward]) {
+    const a = AWARDS[state.selectedAward];
+    const gold = '#f59e0b';
+    el.classList.add('has-selection');
+    el.style.borderColor = `color-mix(in srgb, ${gold} 45%, var(--border))`;
+    el.innerHTML = `
+      <div class="dp-top">
+        <div class="dp-code-title">
+          <span class="dp-code" style="color:${gold};">Award</span>
+          <span class="dp-title">${a.label}</span>
+          <span class="dp-term">${a.semester} Y${a.year}</span>
+        </div>
+      </div>
+      <div class="dp-meta">
+        <span class="tag" style="border-color:${gold}66;color:${gold};"><span class="tag-dot" style="background:${gold};"></span>milestone</span>
+      </div>
+      <div class="dp-body">
+        <div class="dp-project"><strong>About:</strong>${a.detail}</div>
+      </div>
+    `;
+    return;
+  }
+
+  // Activity selection takes priority when set
+  if (state.selectedActivity != null && ACTIVITIES[state.selectedActivity]) {
+    const a = ACTIVITIES[state.selectedActivity];
+    const kindColor = {
+      intern:  '#10b981',
+      event:   '#6366f1',
+      role:    '#ec4899',
+      project: '#06b6d4',
+    }[a.kind] || 'var(--accent)';
+    el.classList.add('has-selection');
+    el.style.borderColor = `color-mix(in srgb, ${kindColor} 45%, var(--border))`;
+    const span = `${a.start[1]} Y${a.start[0]} → ${a.end[1]} Y${a.end[0]}`;
+    el.innerHTML = `
+      <div class="dp-top">
+        <div class="dp-code-title">
+          <span class="dp-code" style="color:${kindColor};">${a.lane}</span>
+          <span class="dp-title">${a.label}</span>
+          <span class="dp-term">${a.meta}</span>
+        </div>
+      </div>
+      <div class="dp-meta">
+        <span class="tag" style="border-color:${kindColor}66;color:${kindColor};"><span class="tag-dot" style="background:${kindColor};"></span>${a.kind}</span>
+        <span class="tag tag-category" style="border-color:${kindColor}66;color:${kindColor};">${span}</span>
+      </div>
+      <div class="dp-body">
+        <div class="dp-project"><strong>About:</strong>${a.detail}</div>
+      </div>
+    `;
+    return;
+  }
+
   const idx = state.selectedIdx;
   if (idx === null || idx === undefined || !courses[idx]) {
     el.classList.remove('has-selection');
-    el.innerHTML = `<div class="dp-empty">Click any course pill above to see its details.</div>`;
+    el.style.borderColor = '';
+    el.innerHTML = `<div class="dp-empty">Click any course pill or activity bar above to see its details.</div>`;
     return;
   }
   const c = courses[idx];
